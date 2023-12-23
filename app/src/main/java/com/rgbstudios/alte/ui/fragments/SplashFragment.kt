@@ -58,10 +58,9 @@ class SplashFragment : Fragment() {
             checkNetworkConnectivity()
 
             // Navigate to OnboardingFragmentOne
-            findNavController().navigate(R.id.action_splashFragment_to_onboardingFragment)
+            findNavController().navigate(R.id.action_splashFragment_to_signUpFragment)
 
-
-        }, 500)
+        }, 2000)
     }
 
     private fun checkNetworkConnectivity() {
