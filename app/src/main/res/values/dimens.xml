@@ -5,12 +5,18 @@
     <dimen name="text_18">18sp</dimen>
     <dimen name="text_24">24sp</dimen>
     <dimen name="text_32">32sp</dimen>
+    <dimen name="text_36">36sp</dimen>
+    <dimen name="text_40">40sp</dimen>
     <dimen name="dimen_8">8dp</dimen>
     <dimen name="dimen_10">10dp</dimen>
     <dimen name="dimen_16">16dp</dimen>
     <dimen name="dimen_20">20dp</dimen>
     <dimen name="dimen_24">24dp</dimen>
     <dimen name="dimen_32">32dp</dimen>
-    <dimen name="launcher_height">120dp</dimen>
+    <dimen name="dimen_64">64dp</dimen>
+    <dimen name="dimen_128">128dp</dimen>
+    <dimen name="dimen_80">80dp</dimen>
+    <dimen name="launcher_height">160dp</dimen>
+    <dimen name="image_height">380dp</dimen>
 
 </resources>
