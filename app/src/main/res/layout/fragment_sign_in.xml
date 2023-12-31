@@ -9,23 +9,107 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editTextPhoneNumber"
+        <ImageView
+            android:id="@+id/logo_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dimen_128"
+            app:srcCompat="@drawable/logo"
+            app:tint="?attr/colorOnSurface" />
+
+        <TextView
+            android:id="@+id/sign_in_TV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone Number"
-            android:inputType="phone" />
+            android:layout_margin="@dimen/dimen_32"
+            android:gravity="center"
+            android:text="Sign in to your Alté verse"
+            android:textSize="@dimen/text_24"
+            android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btnSignUp"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dimen_64"
+            android:layout_marginHorizontal="@dimen/dimen_32"
+            android:layout_gravity="center"
+            app:cardCornerRadius="@dimen/dimen_24"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/dimen_8"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/number_prefix_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_8"
+                    android:paddingVertical="@dimen/dimen_8"
+                    android:paddingHorizontal="@dimen/dimen_8"
+                    android:background="@android:color/transparent" />
+
+                <EditText
+                    android:id="@+id/phoneEditTextNumber"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:maxEms="10"
+                    android:layout_marginHorizontal="@dimen/dimen_8"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/password_hint"
+                    android:inputType="phone" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="@dimen/dimen_32"
             android:layout_marginVertical="@dimen/dimen_32"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/sendOTPBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/text_16"
+                android:layout_gravity="center"
+                android:text="@string/send"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="@dimen/text_16"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="?attr/colorOnPrimary"
+                android:padding="4sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign Up" />
+            android:textSize="@dimen/text_14"
+            android:text="@string/privacy_agreement"
+            android:layout_marginTop="@dimen/dimen_32"
+            android:layout_marginHorizontal="@dimen/dimen_32"
+            android:gravity="center"/>
 
     </LinearLayout>
 </ScrollView>
