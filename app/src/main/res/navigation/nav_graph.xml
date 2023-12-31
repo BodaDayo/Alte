@@ -11,11 +11,20 @@
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
-            android:id="@+id/action_splashFragment_to_signInFragment"
-            app:destination="@id/signInFragment" />
+            android:id="@+id/action_splashFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_splashFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
+            android:id="@+id/action_splashFragment_to_onboardingFinalFragment"
+            app:destination="@id/onboardingFinalFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_onboardingFragment"
+            app:destination="@id/onboardingFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/onboardingFragment"
@@ -30,6 +39,14 @@
         <action
             android:id="@+id/action_signInFragment_to_onboardingFragment"
             app:destination="@id/onboardingFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_otpFragment"
+            app:destination="@id/otpFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/signInFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -39,5 +56,37 @@
         <action
             android:id="@+id/action_signUpFragment_to_onboardingFragment"
             app:destination="@id/onboardingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/onboardingFinalFragment"
+        android:name="com.rgbstudios.alte.ui.fragments.OnboardingFinalFragment"
+        android:label="fragment_onboarding_final"
+        tools:layout="@layout/fragment_onboarding_final" >
+        <action
+            android:id="@+id/action_onboardingFinalFragment_to_signInFragment"
+            app:destination="@id/signInFragment"
+            app:popUpTo="@id/onboardingFinalFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_onboardingFinalFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment"
+            app:popUpTo="@id/onboardingFinalFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.rgbstudios.alte.ui.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/otpFragment"
+        android:name="com.rgbstudios.alte.ui.fragments.OtpFragment"
+        android:label="fragment_otp"
+        tools:layout="@layout/fragment_otp" >
+        <action
+            android:id="@+id/action_otpFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/otpFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>
