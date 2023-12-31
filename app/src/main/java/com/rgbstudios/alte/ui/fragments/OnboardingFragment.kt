@@ -5,56 +5,53 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.viewpager2.widget.ViewPager2
+import com.airbnb.lottie.LottieAnimationView
 import com.rgbstudios.alte.R
+import com.rgbstudios.alte.databinding.FragmentOnboardingBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [OnboardingFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class OnboardingFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentOnboardingBinding
+    private lateinit var customBar: LottieAnimationView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_onboarding, container, false)
+        binding = FragmentOnboardingBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment OnboardingFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            OnboardingFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.apply {
+            customBar = lottieAnimationView
+            showAnim.setOnClickListener {
+                texty.visibility = View.GONE
+                showAnim.visibility = View.GONE
+                showProgress()
+                closer.visibility = View.VISIBLE
             }
+
+            closer.setOnClickListener {
+                texty.visibility = View.VISIBLE
+                showAnim.visibility = View.VISIBLE
+
+                customBar.visibility = View.GONE
+                closer.visibility = View.GONE
+            }
+        }
     }
+
+    private fun showProgress() {
+        // Set the animation file
+        customBar.setAnimation("progress_animation.json")
+
+        // Start the animation
+        customBar.playAnimation()
+
+        customBar.visibility = View.VISIBLE
+    }
+
 }
