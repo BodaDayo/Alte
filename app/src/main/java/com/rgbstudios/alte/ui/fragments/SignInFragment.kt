@@ -1,11 +1,16 @@
 package com.rgbstudios.alte.ui.fragments
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
@@ -29,7 +34,7 @@ class SignInFragment : Fragment() {
     private val sharedViewModel: AlteViewModel by activityViewModels()
 
     private lateinit var binding: FragmentSignInBinding
-    private lateinit var fullPhoneNumber:String
+    private lateinit var fullPhoneNumber: String
     private val countryCodeProvider = CountryCodeProvider()
     private val toastManager = ToastManager()
     private val auth = FirebaseAuth.getInstance()
@@ -52,7 +57,11 @@ class SignInFragment : Fragment() {
             val countryCodeList = countryCodeProvider.getCountryCodes()
 
             val adapter =
-                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, countryCodeList)
+                ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_spinner_item,
+                    countryCodeList
+                )
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             numberPrefixSpinner.adapter = adapter
 
@@ -60,22 +69,43 @@ class SignInFragment : Fragment() {
             val defaultSelection = countryCodeList.indexOf("+234")
             numberPrefixSpinner.setSelection(defaultSelection)
 
-            sendOTPBtn.setOnClickListener {
-                val countryCode = numberPrefixSpinner.selectedItem as String
-                val phoneNumber = phoneEditTextNumber.text.toString()
-
-                if (phoneNumber.isNotBlank()) {
-                    fullPhoneNumber = "$countryCode$phoneNumber"
-
-                    progressBar.visibility = View.VISIBLE
-                    sendOTPBtn.text = ""
-
-                    // Initiate phone authentication
-                    initiatePhoneAuthentication()
-                } else {
-                    toastManager.showShortToast(requireContext(), "Please enter a phone number.")
+            phoneEditTextNumber.setOnEditorActionListener { _, actionId, event ->
+                if (actionId == EditorInfo.IME_ACTION_DONE ||
+                    (event != null && event.action == KeyEvent.ACTION_DOWN &&
+                            event.keyCode == KeyEvent.KEYCODE_ENTER)
+                ) {
+                    // "Enter" button pressed on the keyboard
+                    handleSendOTPPress()
+                    return@setOnEditorActionListener true
                 }
+                false
             }
+
+            sendOTPBtn.setOnClickListener {
+                handleSendOTPPress()
+            }
+        }
+    }
+
+    private fun handleSendOTPPress() {
+        val countryCode = binding.numberPrefixSpinner.selectedItem as String
+        val phoneNumber = binding.phoneEditTextNumber.text.toString()
+
+        if (phoneNumber.isNotBlank()) {
+            fullPhoneNumber = "$countryCode$phoneNumber"
+
+            if (isNetworkAvailable()) {
+
+                showProgressBar(true)
+
+                // Initiate phone authentication
+                initiatePhoneAuthentication()
+            } else {
+                toastManager.showShortToast(requireContext(), "No network available.")
+                showProgressBar(false)
+            }
+        } else {
+            toastManager.showShortToast(requireContext(), "Please enter a phone number.")
         }
     }
 
@@ -84,10 +114,11 @@ class SignInFragment : Fragment() {
         val phoneNumber = "+16505554567"
         val smsCode = "123456"
 
+        // Turn off phone auth app verification.
         val firebaseAuthSettings = auth.firebaseAuthSettings
 
         // Configure faking the auto-retrieval with the whitelisted numbers.
-        firebaseAuthSettings.setAutoRetrievedSmsCodeForPhoneNumber(phoneNumber, smsCode)
+        firebaseAuthSettings.setAppVerificationDisabledForTesting(true)
 
         val options = PhoneAuthOptions.newBuilder(auth)
             .setPhoneNumber(phoneNumber)
@@ -98,20 +129,24 @@ class SignInFragment : Fragment() {
                     signInWithPhoneAuthCredential(credential)
                     verificationStarted = false
 
-                    binding.progressBar.visibility = View.GONE
-                    binding.sendOTPBtn.text = getString(R.string.send)
+                    showProgressBar(false)
                 }
 
                 override fun onVerificationFailed(e: FirebaseException) {
                     // Handle verification failure
                     if (e is FirebaseAuthInvalidCredentialsException) {
-                        toastManager.showShortToast(requireContext(), "Invalid phone number format.")
+                        toastManager.showShortToast(
+                            requireContext(),
+                            "Invalid phone number format."
+                        )
                     } else if (e is FirebaseTooManyRequestsException) {
-                        toastManager.showShortToast(requireContext(), "SMS quota exceeded. Please try again later.")
+                        toastManager.showShortToast(
+                            requireContext(),
+                            "SMS quota exceeded. Please try again later."
+                        )
                     }
                     verificationStarted = false
-                    binding.progressBar.visibility = View.GONE
-                    binding.sendOTPBtn.text = getString(R.string.send)
+                    showProgressBar(false)
                 }
 
                 override fun onCodeSent(
@@ -119,8 +154,7 @@ class SignInFragment : Fragment() {
                     token: PhoneAuthProvider.ForceResendingToken
                 ) {
                     sharedViewModel.saveVerificationInfo(verificationId, token, fullPhoneNumber)
-                    binding.progressBar.visibility = View.GONE
-                    binding.sendOTPBtn.text = getString(R.string.send)
+                    showProgressBar(false)
 
                     // Navigate to OtpFragment
                     navigateToOtpFragment()
@@ -157,7 +191,10 @@ class SignInFragment : Fragment() {
             if (e is FirebaseAuthInvalidCredentialsException) {
                 toastManager.showShortToast(requireContext(), "Invalid phone number format.")
             } else if (e is FirebaseTooManyRequestsException) {
-                toastManager.showShortToast(requireContext(), "SMS quota exceeded. Please try again later.")
+                toastManager.showShortToast(
+                    requireContext(),
+                    "SMS quota exceeded. Please try again later."
+                )
             }
             verificationStarted = false
         }
@@ -182,7 +219,7 @@ class SignInFragment : Fragment() {
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Toast.makeText(requireContext() , "Authentication Successful!" , Toast.LENGTH_SHORT).show()
+                    toastManager.showLongToast(requireContext() , "Authentication Successful!")
                     // Navigate
                     findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
                 } else {
@@ -214,6 +251,28 @@ class SignInFragment : Fragment() {
             // Reset imageSample layout visibility
             if (verificationStarted) {
                 initiatePhoneAuthentication()
+            }
+        }
+    }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager =
+            requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val network = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+
+        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+    }
+
+    private fun showProgressBar(toShow: Boolean) {
+        binding.apply {
+            if (toShow) {
+                progressBar.visibility = View.VISIBLE
+                sendOTPBtn.text = ""
+            } else {
+                progressBar.visibility = View.GONE
+                sendOTPBtn.text = getString(R.string.send)
             }
         }
     }
