@@ -1,6 +1,8 @@
 package com.rgbstudios.alte.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import android.text.Editable
@@ -10,6 +12,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -36,6 +39,8 @@ class OtpFragment : Fragment() {
     private val toastManager = ToastManager()
     private val firebase = FirebaseAccess()
     private val auth = firebase.auth
+    private var resendCountdownTimer: CountDownTimer? = null
+    private var resendCountdownSeconds: Long = 90
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,14 +60,30 @@ class OtpFragment : Fragment() {
         fullPhoneNumber = sharedViewModel.verificationInfo.value!!.third
 
         binding.apply {
-            otpProgressBar.visibility = View.INVISIBLE
+            // Explicitly request focus on the first EditText
+            otpEditText1.requestFocus()
+
+            // Show the keyboard
+            val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(otpEditText1, InputMethodManager.SHOW_IMPLICIT)
+
+            userPhoneNumber.text = fullPhoneNumber
+
+            // Set initial countdown text
+            resendCountdown.text = formatCountdown(resendCountdownSeconds)
+
+            // Start the countdown timer
+            startResendCountdown()
 
             verifyOTPBtn.setOnClickListener {
-
                 handleOTPVerification(verificationId)
             }
 
             resendTextView.setOnClickListener {
+                // Reset the countdown timer
+                resetResendCountdown()
+
+                // Resend OTP logic
                 resendOTPTvVisibility()
                 resendVerificationCode()
             }
@@ -81,7 +102,8 @@ class OtpFragment : Fragment() {
                     val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(
                         verificationId, typedOTP
                     )
-                    otpProgressBar.visibility = View.VISIBLE
+                    progressBar.visibility = View.VISIBLE
+                    verifyOTPBtn.text = ""
                     signInWithPhoneAuthCredential(credential)
                 } else {
                     Toast.makeText(requireContext(), "Please Enter Correct OTP", Toast.LENGTH_SHORT)
@@ -102,11 +124,11 @@ class OtpFragment : Fragment() {
             otpEditText4.setText("")
             otpEditText5.setText("")
             otpEditText6.setText("")
-            resendTextView.visibility = View.INVISIBLE
+
             resendTextView.isEnabled = false
 
             Handler(Looper.myLooper()!!).postDelayed(Runnable {
-                resendTextView.visibility = View.VISIBLE
+
                 resendTextView.isEnabled = true
             }, 90000)
         }
@@ -133,6 +155,8 @@ class OtpFragment : Fragment() {
             //     detect the incoming verification SMS and perform verification without
             //     user action.
             signInWithPhoneAuthCredential(credential)
+            binding.progressBar.visibility = View.GONE
+            binding.verifyOTPBtn.text = getString(R.string.verify)
         }
 
         override fun onVerificationFailed(e: FirebaseException) {
@@ -141,13 +165,17 @@ class OtpFragment : Fragment() {
 
             if (e is FirebaseAuthInvalidCredentialsException) {
                 // Invalid request
-                Log.d("TAG", "onVerificationFailed: ${e.toString()}")
+                Log.d("TAG", "onVerificationFailed: $e")
             } else if (e is FirebaseTooManyRequestsException) {
                 // The SMS quota for the project has been exceeded
-                Log.d("TAG", "onVerificationFailed: ${e.toString()}")
+                Log.d("TAG", "onVerificationFailed: $e")
             }
-            binding.otpProgressBar.visibility = View.VISIBLE
-            // Show a message and update the UI
+            toastManager.showShortToast(
+                requireContext(),
+                e.message
+            )
+            binding.progressBar.visibility = View.GONE
+            binding.verifyOTPBtn.text = getString(R.string.verify)
         }
 
         override fun onCodeSent(
@@ -159,6 +187,8 @@ class OtpFragment : Fragment() {
             // by combining the code with a verification ID.
             // Save verification ID and resending token so we can use them later
             sharedViewModel.saveVerificationInfo(verificationId, token, fullPhoneNumber)
+            binding.progressBar.visibility = View.GONE
+            binding.verifyOTPBtn.text = getString(R.string.verify)
         }
     }
 
@@ -193,7 +223,6 @@ class OtpFragment : Fragment() {
                     R.id.otpEditText4 -> if (text.length == 1) otpEditText5.requestFocus() else if (text.isEmpty()) otpEditText3.requestFocus()
                     R.id.otpEditText5 -> if (text.length == 1) otpEditText6.requestFocus() else if (text.isEmpty()) otpEditText4.requestFocus()
                     R.id.otpEditText6 -> if (text.isEmpty()) otpEditText5.requestFocus()
-
                 }
             }
         }
@@ -223,8 +252,44 @@ class OtpFragment : Fragment() {
                             "Invalid phone number format."
                         )
                     }
-                    // Update UI
+                    binding.progressBar.visibility = View.GONE
+                    binding.verifyOTPBtn.text = getString(R.string.verify)
                 }
             }
     }
+
+    private fun startResendCountdown() {
+        resendCountdownTimer = object : CountDownTimer(resendCountdownSeconds * 1000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                resendCountdownSeconds = millisUntilFinished / 1000
+                binding.resendCountdown.text = formatCountdown(resendCountdownSeconds)
+            }
+
+            override fun onFinish() {
+                binding.resendCountdown.visibility = View.GONE
+                resendCountdownTimer = null
+            }
+        }.start()
+    }
+
+    private fun resetResendCountdown() {
+        // Cancel the existing countdown timer
+        resendCountdownTimer?.cancel()
+
+        // Reset the countdown duration
+        resendCountdownSeconds = 90
+
+        // Set initial countdown text
+        binding.resendCountdown.text = formatCountdown(resendCountdownSeconds)
+
+        // Start the countdown timer again
+        startResendCountdown()
+    }
+
+    private fun formatCountdown(seconds: Long): String {
+        val minutes = seconds / 60
+        val remainingSeconds = seconds % 60
+        return String.format("%02d:%02d", minutes, remainingSeconds)
+    }
+
 }
