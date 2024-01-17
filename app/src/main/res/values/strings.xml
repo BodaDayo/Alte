@@ -3,4 +3,85 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="developer_signature">© 2023 Oladayo.rgb</string>
+    <string name="catch_phrase">Stay Connected!</string>
+    <string name="login">Login</string>
+    <string name="send">Send</string>
+    <string name="verify">Verify</string>
+    <string name="email">Email</string>
+    <string name="save">Save</string>
+    <string name="pick_from_default">Pick avatar from default</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="already_have_an_account">Already have an account? </string>
+    <string name="register">Register</string>
+    <string name="don_t_have_an_account">Don’t have an account? </string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="password_hint">&#8226; &#8226; &#8226; &#8226; &#8226; &#8226; &#8226; &#8226; &#8226; &#8226;</string>
+    <string name="enter_your_email">Enter your Email</string>
+    <string name="enter_your_full_name">Enter your full name</string>
+    <string name="enter_unique_username"> Enter a unique username</string>
+    <string name="password">Password</string>
+    <string name="privacy_agreement_instructions">Please read our Privacy Policy and check the box to agree.</string>
+
+    <string name="country_code_format">%1$s, %2$s</string>
+    <string name="agree_continue">Agree &amp; Continue</string>
+
+    <string name="privacy_policy_header">Privacy Policy</string>
+    <string name="privacy_policy_update">Last updated: 15-Jan-2024</string>
+    <string name="privacy_policy_text">The Alté Company ("us", "we", or "our") operates the Alté mobile application (the "Service").
+
+        \n\nThis page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated with that data.
+
+        \n\nWe use your data to provide and improve the Service. By using the Service, you agree to the collection and use of information in accordance with this policy.
+
+        \n\n<b>Information Collection And Use</b>
+
+        \nWe collect several different types of information for various purposes to provide and improve our Service to you.
+
+        \n\n<b>Types of Data Collected</b>
+
+        \n<i>Personal Data</i>
+
+       \nWhile using our Service, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you ("Personal Data"). Personally identifiable information may include, but is not limited to:
+        \n • Email address
+        \n • First name and last name
+        \n • Phone number
+
+        \n\n<b>Use of Data</b>
+
+        \nWe use the collected data for various purposes:
+        \n • To provide and maintain the Service
+        \n • To notify you about changes to our Service
+        \n • To provide customer care and support
+        \n • To monitor the usage of the Service
+        \n • To detect, prevent and address technical issues
+
+        \n\nFor more detailed information, please review our full Privacy Policy on our website.
+
+        \n\n<b>Contact Us</b>
+
+        \nIf you have any questions about this Privacy Policy, please contact us:
+        \nBy email: rgb.mobile.studios@gmail.com
+</string>
+
+
+    <string-array name="gender_options">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Prefer not to say</item>
+    </string-array>
+
+
+    <string name="sign_up_text">Create your Alté verse</string>
+    <string name="sign_in_text">Log in to your Alté verse</string>
+    <string name="skip">SKIP</string>
+    <string name="cancel">Cancel</string>
+    <string name="done">Done</string>
+    <string name="_01_01_2020">01/01/2020</string>
+    <string name="username_required">Username (Required)</string>
+    <string name="empty_text" />
+    <string name="connect">Connect</string>
+    <string name="alte_verse">Alté Verse</string>
+    <string name="your_planet">Your Planet</string>
+
+
 </resources>
