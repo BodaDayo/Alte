@@ -5,28 +5,214 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="none"
-    tools:context=".ui.fragments.SignInFragment">
+    tools:context=".ui.fragments.SignUpFragment">
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editTextPhoneNumber"
+        <ImageView
+            android:id="@+id/logo_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dimen_64"
+            app:srcCompat="@drawable/logo"
+            app:tint="?attr/colorOnSurface" />
+
+        <TextView
+            android:id="@+id/sign_in_TV"
+            style="@style/Subtitle1"
+            android:layout_margin="@dimen/dimen_32"
+            android:gravity="center"
+            android:text="@string/sign_up_text" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone Number"
-            android:inputType="phone"/>
+            android:layout_marginHorizontal="@dimen/dimen_32"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnSignUp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_24"
+                android:layout_marginVertical="@dimen/dimen_8"
+                android:text="@string/email"
+                android:textSize="@dimen/text_16" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxCornerRadiusBottomEnd="@dimen/dimen_32"
+                app:boxCornerRadiusBottomStart="@dimen/dimen_32"
+                app:boxCornerRadiusTopEnd="@dimen/dimen_32"
+                app:boxCornerRadiusTopStart="@dimen/dimen_32"
+                app:boxStrokeWidth="@dimen/stroke_width"
+                app:boxStrokeWidthFocused="@dimen/stroke_width"
+                app:hintEnabled="false"
+                app:queryBackground="@android:color/transparent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_your_email"
+                    android:inputType="textEmailAddress"
+                    app:queryBackground="@android:color/transparent" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginVertical="@dimen/dimen_32"
             android:layout_height="wrap_content"
-            android:text="Sign Up"/>
+            android:layout_marginHorizontal="@dimen/dimen_32"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_24"
+                android:layout_marginVertical="@dimen/dimen_8"
+                android:text="@string/password"
+                android:textSize="@dimen/text_16" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxCornerRadiusBottomEnd="@dimen/dimen_32"
+                app:boxCornerRadiusBottomStart="@dimen/dimen_32"
+                app:boxCornerRadiusTopEnd="@dimen/dimen_32"
+                app:boxCornerRadiusTopStart="@dimen/dimen_32"
+                app:boxStrokeWidth="@dimen/stroke_width"
+                app:boxStrokeWidthFocused="@dimen/stroke_width"
+                app:hintEnabled="false"
+                app:passwordToggleEnabled="true"
+                app:queryBackground="@android:color/transparent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password_hint"
+                    android:inputType="textPassword"
+                    app:queryBackground="@android:color/transparent" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_32"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_24"
+                android:layout_marginVertical="@dimen/dimen_8"
+                android:text="@string/confirm_password"
+                android:textSize="@dimen/text_16" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxCornerRadiusBottomEnd="@dimen/dimen_32"
+                app:boxCornerRadiusBottomStart="@dimen/dimen_32"
+                app:boxCornerRadiusTopEnd="@dimen/dimen_32"
+                app:boxCornerRadiusTopStart="@dimen/dimen_32"
+                app:boxStrokeWidth="@dimen/stroke_width"
+                app:boxStrokeWidthFocused="@dimen/stroke_width"
+                app:hintEnabled="false"
+                app:passwordToggleEnabled="true"
+                app:queryBackground="@android:color/transparent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/confirmPassEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password_hint"
+                    android:inputType="textPassword"
+                    app:queryBackground="@android:color/transparent" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_32"
+            android:layout_marginVertical="@dimen/dimen_16"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/agreementRead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/agreementTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/privacy_agreement_instructions"
+                android:textSize="@dimen/text_14" />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_32">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/signUpButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/text_16"
+                android:text="@string/register"
+                android:textSize="@dimen/text_16"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="?attr/colorOnPrimary"
+                android:padding="4sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/tvLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:padding="16sp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/already_have_an_account"
+                android:textColor="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/signInTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login" />
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>
