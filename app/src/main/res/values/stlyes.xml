@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Text Appearance styles -->
+    <!-- Text Appearance Subtitle1 style -->
+    <style name="Subtitle1" parent="Base.Theme.Alte">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_24</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Text Appearance Subtitle2 style -->
+    <style name="Subtitle2" parent="Base.Theme.Alte">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dimen_16</item>
+    </style>
+
+    <!-- Text Appearance menu_text style -->
+    <style name="menu_text" parent="Base.Theme.Alte">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawablePadding">8sp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- EditText Appearance for OTP -->
+    <style name="otpET" parent="Base.Theme.Alte">
+        <item name="android:padding">@dimen/dimen_8</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/dimen_8</item>
+        <item name="android:background">@drawable/edit_text_bg</item>
+        <item name="android:ems">2</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLength">1</item>
+        <item name="android:focusable">true</item>
+        <item name="android:hint">0</item>
+        <item name="android:inputType">number</item>
+    </style>
+
+
+    <!-- Button styles -->
+    <!-- Proceed Button style -->
+    <style name="proceedButton" parent="Base.Theme.Alte">
+        <item name="android:layout_width">0sp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- cancel Button style -->
+    <style name="cancelButton" parent="Base.Theme.Alte">
+        <item name="android:backgroundTint">?colorSurface</item>
+        <item name="android:textColor">?colorPrimary</item>
+        <item name="android:layout_width">0sp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="strokeColor">#1F000000</item>
+        <item name="strokeWidth">1sp</item>
+    </style>
+
+    <!-- counter Button style -->
+    <style name="counterButton" parent="Base.Theme.Alte">
+        <item name="android:backgroundTint">?colorSecondaryContainer</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="tint">?colorOnSecondaryContainer</item>
+    </style>
+
+
+    <!-- Divider style -->
+    <style name="Widget.breakfastApp.Divider" parent="">
+        <item name="android:background">?attr/dividerHorizontal</item>
+    </style>
+</resources>

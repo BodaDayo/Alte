@@ -3,14 +3,16 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green">#FF00FFA3</color>
+    <color name="overlay_tint">#80000000</color>
 
     <color name="btn_color">#FF735C</color>
     <color name="edit_text_color">#FFD6CF</color>
     <color name="hint_text_color">#D4D4D4</color>
+    <color name="my_darker_grey">#838383</color>
 
     <color name="seed">#FFEB3B</color>
     <color name="md_theme_light_primary">#FFCB45</color>
-    <color name="md_theme_light_onPrimary">#FFFFFF</color>
+    <color name="md_theme_light_onPrimary">#201C00</color>
     <color name="md_theme_light_primaryContainer">#F9E534</color>
     <color name="md_theme_light_onPrimaryContainer">#201C00</color>
     <color name="md_theme_light_secondary">#006874</color>

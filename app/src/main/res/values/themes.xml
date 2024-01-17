@@ -3,7 +3,7 @@
     <style name="Base.Theme.Alte" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
-        <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
+        <item name="colorPrimaryContainer">@color/md_theme_light_primary</item>
         <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimaryContainer</item>
         <item name="colorSecondary">@color/md_theme_light_secondary</item>
         <item name="colorOnSecondary">@color/md_theme_light_onSecondary</item>
