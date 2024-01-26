@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.rgbstudios.alte.R
 import com.rgbstudios.alte.data.remote.FirebaseAccess
 import com.rgbstudios.alte.data.repository.AlteRepository
-import com.rgbstudios.alte.databinding.FragmentHomeBinding
+import com.rgbstudios.alte.databinding.FragmentMessagesBinding
 import com.rgbstudios.alte.ui.adapters.PeepAdapter
 import com.rgbstudios.alte.utils.AvatarManager
 import com.rgbstudios.alte.utils.DialogManager
@@ -22,7 +22,7 @@ import com.rgbstudios.alte.utils.ToastManager
 import com.rgbstudios.alte.viewmodel.AlteViewModel
 import com.rgbstudios.alte.viewmodel.AlteViewModelFactory
 
-class HomeFragment : Fragment() {
+class MessagesFragment : Fragment() {
     private val firebase = FirebaseAccess()
 
     private val alteViewModel: AlteViewModel by viewModels {
@@ -33,19 +33,24 @@ class HomeFragment : Fragment() {
     private val toastManager = ToastManager()
     private val dialogManager = DialogManager()
     private val avatarManager = AvatarManager()
-    private lateinit var binding: FragmentHomeBinding
+    private lateinit var binding: FragmentMessagesBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+    ): View {
+        binding = FragmentMessagesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+            val currentUser = firebase.currentUser
+
+            if (currentUser != null) {
+                alteViewModel.startCurrentUserListener(currentUser.uid)
+            }
 
             // Set up the planet adapter
             val peepAdapter = PeepAdapter(requireContext(), alteViewModel)
@@ -59,6 +64,10 @@ class HomeFragment : Fragment() {
             val peeps = convertResourceIdsToBitmaps(peepList)
 
             peepAdapter.updatePeeps(peeps)
+
+            navigatorBtn.setOnClickListener {
+                findNavController().navigate(R.id.action_messagesFragment_to_chatFragment)
+            }
 
             showAnim.setOnClickListener {
                 texty.visibility = View.GONE
@@ -77,19 +86,15 @@ class HomeFragment : Fragment() {
                 closer.visibility = View.GONE
             }
 
-            moreOptions.setOnClickListener { view ->
-                showOverflowMenu(view)
-            }
-
             fab.setOnClickListener {
-                findNavController().navigate(R.id.action_homeFragment_to_alteVerseFragment)
+                findNavController().navigate(R.id.action_messagesFragment_to_alteVerseFragment)
             }
 
             logoutBtn.setOnClickListener {
                 alteViewModel.logOut { logOutSuccessful, errorMessage ->
 
                     if (logOutSuccessful) {
-                        findNavController().navigate(R.id.action_homeFragment_to_signInFragment)
+                        findNavController().navigate(R.id.action_messagesFragment_to_signInFragment)
 
                     } else {
 
@@ -103,40 +108,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun showOverflowMenu(view: View) {
-        val popupMenu = PopupMenu(requireContext(), view)
-
-        // Inflate the menu resource
-        popupMenu.menuInflater.inflate(R.menu.home_overflow_menu, popupMenu.menu)
-
-        // Set an OnMenuItemClickListener for the menu items
-        popupMenu.setOnMenuItemClickListener { item ->
-            when (item.itemId) {
-                R.id.new_circle -> {
-
-                    true
-                }
-
-                R.id.new_broadcast -> {
-                    true
-                }
-
-                R.id.starred_messages -> {
-                    true
-                }
-
-                R.id.settings -> {
-                    true
-                }
-
-                else -> false
-            }
-        }
-
-        // Show the popup menu
-        popupMenu.show()
-    }
-    fun convertResourceIdsToBitmaps(resourceIds: List<Int>): List<Bitmap> {
+    private fun convertResourceIdsToBitmaps(resourceIds: List<Int>): List<Bitmap> {
         val bitmaps = mutableListOf<Bitmap>()
 
         for (resourceId in resourceIds) {
