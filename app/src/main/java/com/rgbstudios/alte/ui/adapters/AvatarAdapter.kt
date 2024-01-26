@@ -1,7 +1,6 @@
 package com.rgbstudios.alte.ui.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.rgbstudios.alte.databinding.ItemAvatarBinding
@@ -32,15 +31,15 @@ class AvatarAdapter(
             // Set the avatar image
             defaultAvatarImageView.setImageResource(avatarImageResource)
 
-            defaultAvatarLayout.setOnClickListener {
+            defaultAvatarImageView.setOnClickListener {
                 avatarClickListener.onAvatarClick(avatarImageResource)
                 selectItem(position)
             }
 
             if (position == selectedColorPosition) {
-                holder.binding.defaultAvatarBack.visibility = View.VISIBLE
+                defaultAvatarImageView.borderWidth = 4
             } else {
-                holder.binding.defaultAvatarBack.visibility = View.INVISIBLE
+                defaultAvatarImageView.borderWidth = 0
             }
         }
     }

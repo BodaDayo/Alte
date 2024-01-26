@@ -4,6 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.rgbstudios.alte.R
 import com.rgbstudios.alte.data.model.UserDetails
 import com.rgbstudios.alte.databinding.ItemPlanetBinding
 import com.rgbstudios.alte.viewmodel.AlteViewModel
@@ -30,7 +32,12 @@ class PlanetAdapter(private val context: Context, private val viewModel: AlteVie
         holder.binding.apply {
             usernamePlanet.text = user.username
             fullNamePlanet.text = user.name
-            userAvatarPlanet.setImageBitmap(user.avatar)
+
+            Glide.with(context)
+                .asBitmap()
+                .load(user.avatarUri)
+                .placeholder(R.drawable.user_icon)
+                .into(userAvatarPlanet)
         }
     }
 

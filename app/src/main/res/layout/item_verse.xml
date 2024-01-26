@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal"
         android:padding="@dimen/dimen_8">
 
@@ -17,29 +18,25 @@
             android:layout_width="@dimen/dimen_56"
             android:layout_height="@dimen/dimen_56">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/circular_primary_background" />
-
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/userAvatarPlanet"
+                android:id="@+id/userAvatarVerse"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="2sp"
-                android:src="@drawable/asset10" />
+                android:src="@drawable/user_icon"
+                app:civ_border_color="?attr/colorPrimary"
+                app:civ_border_width="@dimen/dimen_2"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:layout_marginHorizontal="@dimen/dimen_8"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/usernamePlanet"
+                android:id="@+id/usernameVerse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_16"
@@ -47,14 +44,15 @@
                 tools:text="NameUse001" />
 
             <TextView
-                android:id="@+id/fullNamePlanet"
+                android:id="@+id/fullNameVerse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="NameBond Full" />
+                tools:text="Jane Doe" />
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_16"
             android:layout_height="wrap_content">
 
             <com.google.android.material.button.MaterialButton
@@ -67,6 +65,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/sentTextTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Invite Sent"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <ProgressBar
                 android:id="@+id/connectProgressBar"

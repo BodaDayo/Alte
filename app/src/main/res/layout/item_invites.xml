@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    app:cardCornerRadius="@dimen/dimen_8"
-    android:layout_margin="@dimen/dimen_4">
+    android:layout_margin="@dimen/dimen_4"
+    app:cardCornerRadius="@dimen/dimen_8">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dimen_8"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/dimen_8">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="@dimen/dimen_56"
             android:layout_height="@dimen/dimen_56">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/userAvatarPlanet"
+                android:id="@+id/userAvatarInvites"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="2sp"
-                android:src="@drawable/asset10"
+                android:src="@drawable/user_icon"
                 app:civ_border_color="?attr/colorPrimary"
                 app:civ_border_width="@dimen/dimen_2" />
 
@@ -31,24 +31,35 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_8"
             android:layout_weight="1"
-            android:layout_marginHorizontal="@dimen/dimen_16"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/usernamePlanet"
+                android:id="@+id/usernameInvites"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="NameUse001"
                 android:textSize="@dimen/text_16"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                tools:text="NameUse001" />
 
             <TextView
-                android:id="@+id/fullNamePlanet"
+                android:id="@+id/statusInvitesTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="NameBond Full"/>
+                tools:text="Online" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/withdrawTextTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_16"
+            android:text="@string/withdraw_request"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </LinearLayout>
 
