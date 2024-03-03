@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.fragments.AlteConnectionsFragment">
+
+    <!-- Layout for Requests -->
+    <LinearLayout
+        android:id="@+id/requestsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rounded_top_corners"
+        android:orientation="vertical"
+        android:padding="@dimen/dimen_24"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/dimen_8"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/connection_requests"
+                android:textSize="@dimen/text_18"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/closeRequests"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/close" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/requestsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/emptyRequests"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/no_connection_requests"
+            android:textColor="?attr/colorOnPrimary"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <!-- Layout for Invites -->
+    <LinearLayout
+        android:id="@+id/invitesLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rounded_top_corners_primary"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:padding="@dimen/dimen_24">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/dimen_8"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="?attr/colorOnPrimary"
+                android:text="@string/invites_list"
+                android:textSize="@dimen/text_18"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/closeInvites"
+                android:layout_width="wrap_content"
+                android:textColor="?attr/colorOnPrimary"
+                android:layout_height="wrap_content"
+                android:src="@drawable/close" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/invitesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/emptyInvites"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/invites_list_empty"
+            android:textColor="?attr/colorOnPrimary"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</LinearLayout>

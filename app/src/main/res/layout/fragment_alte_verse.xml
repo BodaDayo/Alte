@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical"
+    tools:context=".ui.fragments.AlteVerseFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@id/userDetailLayout"
+            android:src="@drawable/watermark_light"
+            app:layout_constraintTop_toTopOf="@id/userDetailLayout" />
+
+        <LinearLayout
+            android:id="@+id/userDetailLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/dimen_8"
+            android:paddingVertical="@dimen/dimen_24"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/popBackAV"
+                android:layout_width="@dimen/dimen_48"
+                android:layout_height="@dimen/dimen_48"
+                android:padding="@dimen/dimen_12"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/back"
+                app:tint="@color/white" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/dimen_8">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="@dimen/dimen_48"
+                    android:layout_height="@dimen/dimen_48">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/userAvatarVerse"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/user_icon" />
+
+                    <ProgressBar
+                        android:id="@+id/userAVProgressBar"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="@dimen/dimen_24"
+                        android:layout_height="@dimen/dimen_24"
+                        android:indeterminateTint="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="@dimen/dimen_8"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/fullNameVerse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/your_name"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_16"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/userNameVerse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/username"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.slidingpanelayout.widget.SlidingPaneLayout
+        android:id="@+id/sliderAlteVerse"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Left Pane: Main AlteVerse Layout -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mainAlteVerseLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <!-- Layout for your planet -->
+                <LinearLayout
+                    android:id="@+id/planetLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rounded_top_corners"
+                    android:orientation="vertical"
+                    android:paddingVertical="@dimen/dimen_24">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/dimen_8"
+                        android:gravity="center"
+                        android:text="@string/your_planet"
+                        android:textSize="@dimen/text_18"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/requestsTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_margin="@dimen/dimen_24"
+                        android:text="@string/requests"
+                        android:visibility="gone"
+                        android:textColor="?attr/colorPrimary"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/folksCountTV"
+                        android:layout_marginHorizontal="@dimen/dimen_24"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/dimen_8"
+                        tools:text="@string/_1_000_folks"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/planetRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <LinearLayout
+                        android:id="@+id/emptyConnections"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="@dimen/sample_image_height"
+                            android:layout_height="@dimen/sample_image_height"
+                            android:layout_margin="@dimen/dimen_16"
+                            android:src="@drawable/alone" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dimen_16"
+                            android:gravity="center"
+                            android:text="@string/empty_connections" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Layout for your alteVerse -->
+                <LinearLayout
+                    android:id="@+id/alteVerseLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rounded_top_corners_primary"
+                    android:orientation="vertical"
+                    android:paddingVertical="@dimen/dimen_24">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/dimen_8"
+                        android:gravity="center"
+                        android:text="@string/alte_verse"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="@dimen/text_18"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/invitesTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginHorizontal="@dimen/dimen_24"
+                        android:layout_marginVertical="@dimen/dimen_8"
+                        android:text="@string/invites_list"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/alteVerseRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/arrowAnimationView"
+                android:layout_width="@dimen/dimen_32"
+                android:layout_height="@dimen/dimen_32"
+                android:layout_marginHorizontal="@dimen/dimen_36"
+                android:layout_marginVertical="@dimen/dimen_8"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/verseFab"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="arrow_animation.json"
+                app:lottie_loop="true" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/verseFab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_24"
+                android:src="@drawable/logo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Right Pane: Connections -->
+        <FrameLayout
+            android:id="@+id/connectionsLayout"
+            android:layout_width="300dp"
+            android:name="com.rgbstudios.alte.ui.fragments.AlteConnectionsFragment"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+    </androidx.slidingpanelayout.widget.SlidingPaneLayout>
+
+</LinearLayout>
