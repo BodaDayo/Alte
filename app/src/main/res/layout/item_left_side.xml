@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/selectedView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/md_theme_light_secondaryContainer_overlay"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/chatItemLayout"
+        app:layout_constraintTop_toTopOf="@id/chatItemLayout" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chatItemLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_16"
+        android:layout_marginEnd="@dimen/dimen_64"
+        android:layout_marginVertical="@dimen/dimen_4"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dimen_4"
+        app:layout_constraintTop_toTopOf="parent">
+        
+        <LinearLayout
+            android:id="@+id/messageLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_left_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/recipientMessageLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_8"
+                android:visibility="gone"
+                android:background="@drawable/rounded_light_grey_overlay"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/dimen_16"
+                android:paddingVertical="@dimen/dimen_12">
+
+                <TextView
+                    android:id="@+id/recipientTitleTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    tools:text="Citizen" />
+
+                <TextView
+                    android:id="@+id/recipientMessage"
+                    android:layout_width="match_parent"
+                    android:minEms="3"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/privacy_agreement_instructions" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/chatImage"
+                android:layout_width="@dimen/chat_image_height"
+                android:layout_height="@dimen/chat_image_height"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                android:layout_margin="@dimen/dimen_8"
+                android:src="@drawable/asset7"
+                android:contentDescription="@string/message_image" />
+
+            <TextView
+                android:id="@+id/messageTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minEms="5"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="@dimen/dimen_12"
+                tools:text="@string/privacy_policy_update" />
+            
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@id/messageLayout"
+            app:layout_constraintTop_toBottomOf="@id/messageLayout"
+            tools:ignore="UseCompoundDrawables">
+
+            <TextView
+                android:id="@+id/timeStampTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimen_4"
+                android:textColor="@color/my_darker_grey"
+                android:textSize="@dimen/text_12"
+                tools:text="@string/_08_00am" />
+
+            <ImageView
+                android:id="@+id/starIV"
+                android:layout_width="@dimen/dimen_14"
+                android:layout_height="@dimen/dimen_14"
+                android:src="@drawable/star"
+                android:layout_margin="@dimen/dimen_4"
+                android:visibility="gone"
+                app:tint="@color/my_darker_grey"
+                android:contentDescription="@string/message_starred" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

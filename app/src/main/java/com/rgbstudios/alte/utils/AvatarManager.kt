@@ -20,4 +20,12 @@ class AvatarManager {
     fun getDefaultAvatar(): Int {
         return defaultAvatarsList.random()
     }
+
+    fun getOnboardingImages(): List<Int> {
+        return listOf(
+            R.drawable.onboarding1,
+            R.drawable.onboarding2,
+            R.drawable.onboarding3,
+        )
+    }
 }

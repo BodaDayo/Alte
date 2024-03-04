@@ -11,7 +11,7 @@ class AvatarAdapter(
 ) :
     RecyclerView.Adapter<AvatarAdapter.ViewHolder>() {
 
-    private var selectedColorPosition = -1
+    private var selectedAvatarPosition = -1
 
     inner class ViewHolder(val binding: ItemAvatarBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -36,7 +36,7 @@ class AvatarAdapter(
                 selectItem(position)
             }
 
-            if (position == selectedColorPosition) {
+            if (position == selectedAvatarPosition) {
                 defaultAvatarImageView.borderWidth = 4
             } else {
                 defaultAvatarImageView.borderWidth = 0
@@ -45,10 +45,10 @@ class AvatarAdapter(
     }
 
     private fun selectItem(position: Int) {
-        val previousSelectedColorPosition = selectedColorPosition
-        selectedColorPosition = position
+        val previousSelectedColorPosition = selectedAvatarPosition
+        selectedAvatarPosition = position
         notifyItemChanged(previousSelectedColorPosition)
-        notifyItemChanged(selectedColorPosition)
+        notifyItemChanged(selectedAvatarPosition)
     }
 
     override fun getItemCount(): Int {
@@ -57,6 +57,5 @@ class AvatarAdapter(
 
     interface AvatarClickListener {
         fun onAvatarClick(avatar: Int)
-
     }
 }

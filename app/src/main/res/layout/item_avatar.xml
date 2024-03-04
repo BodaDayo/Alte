@@ -9,9 +9,9 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/defaultAvatarImageView"
-        android:layout_width="@dimen/dimen_56"
-        android:layout_height="@dimen/dimen_56"
+        android:layout_width="@dimen/dimen_48"
+        android:layout_height="@dimen/dimen_48"
         android:src="@drawable/asset2"
-        app:civ_border_color="?attr/colorPrimary" />
+        app:civ_border_color="?attr/colorSecondary" />
 
 </LinearLayout>
