@@ -47,10 +47,12 @@
 
             <ImageView
                 android:id="@+id/rotateCrop"
-                android:layout_width="@dimen/dimen_24"
-                android:layout_height="@dimen/dimen_24"
+                android:layout_width="@dimen/dimen_48"
+                android:layout_height="@dimen/dimen_48"
+                android:padding="@dimen/dimen_12"
                 android:src="@drawable/rotate"
-                app:tint="?attr/colorSurface" />
+                app:tint="?attr/colorSurface"
+                android:contentDescription="@string/rotate_image" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -87,19 +89,22 @@
 
             <ImageView
                 android:id="@+id/closeExpandedImage"
-                android:layout_width="@dimen/dimen_24"
-                android:layout_height="@dimen/dimen_24"
+                android:layout_width="@dimen/dimen_48"
+                android:layout_height="@dimen/dimen_48"
+                android:padding="@dimen/dimen_12"
                 android:layout_margin="@dimen/dimen_16"
                 android:src="@drawable/close"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="?attr/colorSurface" />
+                app:tint="?attr/colorSurface"
+                android:contentDescription="@string/close_expanded_image" />
 
             <ImageView
                 android:id="@+id/expandedImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/asset1" />
+                android:src="@drawable/asset1"
+                android:importantForAccessibility="no" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ScrollView
@@ -120,11 +125,13 @@
 
                     <ImageView
                         android:id="@+id/imageSamplePopBack"
-                        android:layout_width="@dimen/dimen_24"
-                        android:layout_height="@dimen/dimen_24"
+                        android:layout_width="@dimen/dimen_48"
+                        android:layout_height="@dimen/dimen_48"
+                        android:padding="@dimen/dimen_12"
                         android:layout_margin="@dimen/dimen_16"
                         android:src="@drawable/back"
-                        app:tint="?attr/colorOnSurface" />
+                        app:tint="?attr/colorOnSurface"
+                        android:contentDescription="@string/pop_back_icon" />
 
                     <Space
                         android:layout_width="0dp"
@@ -133,9 +140,11 @@
 
                     <ImageView
                         android:id="@+id/editAvatar"
-                        android:layout_width="@dimen/dimen_24"
-                        android:layout_height="@dimen/dimen_24"
+                        android:layout_width="@dimen/dimen_48"
+                        android:layout_height="@dimen/dimen_48"
+                        android:padding="@dimen/dimen_12"
                         android:layout_margin="@dimen/dimen_16"
+                        android:contentDescription="@string/pick_image_icon"
                         android:src="@drawable/camera" />
 
                 </LinearLayout>
@@ -168,7 +177,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/text_16"
-                    android:text="Save"
+                    android:text="@string/save"
                     android:textSize="@dimen/text_16"
                     android:textStyle="bold"
                     android:layout_margin="@dimen/dimen_32"
@@ -203,26 +212,18 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profileImageView"
-                    android:layout_width="@dimen/sample_image_height"
-                    android:layout_height="@dimen/sample_image_height"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/asset2"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:src="@drawable/asset2" />
 
                 <View
                     android:id="@+id/overlayView"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_width="match_parent"
                     android:visibility="gone"
-                    android:background="@drawable/circular_overlay_background"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_height="match_parent"
+                    android:background="@drawable/circular_overlay_dark_background"
+                     />
 
                 <ProgressBar
                     android:id="@+id/progressBar"
@@ -243,6 +244,7 @@
                     android:background="@drawable/circular_primary_background"
                     android:padding="@dimen/dimen_8"
                     android:src="@drawable/camera"
+                    android:contentDescription="@string/pick_image_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:tint="?attr/colorOnPrimary" />
@@ -251,7 +253,7 @@
 
             <TextView
                 style="@style/Subtitle1"
-                android:text="Profile"
+                android:text="@string/profile"
                 android:layout_marginHorizontal="@dimen/dimen_48"/>
 
             <LinearLayout
@@ -265,7 +267,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_16"
                     android:layout_marginVertical="@dimen/dimen_8"
-                    android:text="Full name"
+                    android:text="@string/full_name_required"
                     android:textSize="@dimen/text_16" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -338,7 +340,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_16"
                     android:layout_marginVertical="@dimen/dimen_8"
-                    android:text="Gender"
+                    android:text="@string/gender"
                     android:textSize="@dimen/text_16" />
 
                 <Spinner
@@ -362,7 +364,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_16"
                     android:layout_marginVertical="@dimen/dimen_8"
-                    android:text="About"
+                    android:text="@string/about"
                     android:textSize="@dimen/text_16" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -381,9 +383,8 @@
                         android:id="@+id/aboutEt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="About yourself"
-                        android:inputType="textMultiLine"
-                        android:maxLines="3"
+                        android:hint="@string/about_yourself"
+                        android:inputType="text"
                         app:queryBackground="@android:color/transparent" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -401,7 +402,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_16"
                     android:layout_marginVertical="@dimen/dimen_8"
-                    android:text="Birth date"
+                    android:text="@string/birth_date"
                     android:textSize="@dimen/text_16" />
 
                 <TextView
@@ -411,8 +412,46 @@
                     android:background="@drawable/rounded_stroke_background"
                     android:text="@string/_01_01_2020"
                     android:padding="@dimen/dimen_16"
-                    app:drawableEndCompat="@drawable/calender" />
+                    app:drawableEndCompat="@drawable/calender"
+                    app:drawableTint="@color/my_darker_grey" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_32"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_16"
+                    android:layout_marginVertical="@dimen/dimen_8"
+                    android:text="@string/location"
+                    android:textSize="@dimen/text_16" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxCornerRadiusBottomEnd="@dimen/dimen_32"
+                    app:boxCornerRadiusBottomStart="@dimen/dimen_32"
+                    app:boxCornerRadiusTopEnd="@dimen/dimen_32"
+                    app:boxCornerRadiusTopStart="@dimen/dimen_32"
+                    app:boxStrokeWidth="@dimen/stroke_width"
+                    app:boxStrokeWidthFocused="@dimen/stroke_width"
+                    app:hintEnabled="false"
+                    app:queryBackground="@android:color/transparent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/locationEt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/lagos_ng"
+                        android:inputType="text"
+                        app:queryBackground="@android:color/transparent" />
+
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout

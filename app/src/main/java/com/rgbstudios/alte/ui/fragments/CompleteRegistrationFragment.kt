@@ -16,14 +16,16 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.rgbstudios.alte.AlteApplication
 import com.rgbstudios.alte.R
-import com.rgbstudios.alte.data.model.UserDetails
+import com.rgbstudios.alte.data.model.UserUploadBundle
 import com.rgbstudios.alte.data.remote.FirebaseAccess
 import com.rgbstudios.alte.data.repository.AlteRepository
 import com.rgbstudios.alte.databinding.FragmentCompleteRegistrationBinding
 import com.rgbstudios.alte.ui.adapters.AvatarAdapter
 import com.rgbstudios.alte.utils.AvatarManager
 import com.rgbstudios.alte.utils.DialogManager
+import com.rgbstudios.alte.utils.ImageHandler
 import com.rgbstudios.alte.utils.ToastManager
 import com.rgbstudios.alte.viewmodel.AlteViewModel
 import com.rgbstudios.alte.viewmodel.AlteViewModelFactory
@@ -35,19 +37,21 @@ import java.util.Locale
 class CompleteRegistrationFragment : Fragment() {
     private val firebase = FirebaseAccess()
 
-    private val alteViewModel: AlteViewModel by viewModels {
-        AlteViewModelFactory(requireActivity().application, AlteRepository(firebase))
+    private val alteViewModel: AlteViewModel by activityViewModels {
+        AlteViewModelFactory(requireActivity().application as AlteApplication, AlteRepository(firebase))
     }
 
     private val auth = firebase.auth
     private lateinit var binding: FragmentCompleteRegistrationBinding
     private var selectedGender: String? = null
-    private var selectedDate: Calendar? = null
+    private var selectedDate: String? = null
     private val toastManager = ToastManager()
     private val dialogManager = DialogManager()
+    private val imageHandler = ImageHandler()
     private val avatarManager = AvatarManager()
     private var avatarBitmapHolder: Bitmap? = null
     private var selectedDefaultAvatar: Bitmap? = null
+    private var isCropImageLayoutVisible = false
     private var isSampleImageLayoutVisible = false
     private var isExpandedImageLayoutVisible = false
 
@@ -65,7 +69,7 @@ class CompleteRegistrationFragment : Fragment() {
         binding.apply {
 
             // Get random avatar drawable resource
-            val randomAvatar = avatarManager.defaultAvatar
+            val randomAvatar = avatarManager.getDefaultAvatar()
 
             // Convert the avatar drawable resource to a bitmap
             avatarBitmapHolder = BitmapFactory.decodeResource(resources, randomAvatar)
@@ -75,10 +79,10 @@ class CompleteRegistrationFragment : Fragment() {
 
             // Set up the gender spinner
             val genderOptions = resources.getStringArray(R.array.gender_options)
-            val adapter =
+            val genderAdapter =
                 ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, genderOptions)
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            genderSpinner.adapter = adapter
+            genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            genderSpinner.adapter = genderAdapter
             genderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parentView: AdapterView<*>?,
@@ -88,7 +92,6 @@ class CompleteRegistrationFragment : Fragment() {
                 ) {
                     // Handle the selected item (gender)
                     selectedGender = genderOptions[position]
-                    // You can use the selectedGender as needed
                 }
 
                 override fun onNothingSelected(parentView: AdapterView<*>?) {
@@ -184,7 +187,11 @@ class CompleteRegistrationFragment : Fragment() {
 
             // Customize onBackPressed method
             requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-                if (isExpandedImageLayoutVisible) {
+                if (isCropImageLayoutVisible) {
+
+                    cropImageLayout.visibility = View.GONE
+                    isCropImageLayoutVisible = false
+                } else if (isExpandedImageLayoutVisible) {
 
                     expandedImageLayout.visibility = View.GONE
                     isExpandedImageLayoutVisible = false
@@ -210,44 +217,53 @@ class CompleteRegistrationFragment : Fragment() {
             val about = aboutEt.text.toString().trim()
             val dob = selectedDate
             val avatar = avatarBitmapHolder
+            val status = getString(R.string.online)
+            val location = locationEt.text.toString().trim()
 
-            if (usernameIsValid(username)) {
-                saveProgressBar.visibility = View.VISIBLE
-                saveButton.text = getString(R.string.empty_text)
+            if (name.isEmpty()) {
+                // Show error message
+                fullNameEt.error = getString(R.string.please_enter_name)
+            } else {
 
-                val currentUser = firebase.currentUser
-                val uid = currentUser?.uid
-                val userDetails = UserDetails(
-                    uid = uid!!,
-                    name = name,
-                    username = username,
-                    gender = gender,
-                    about = about,
-                    dob = dob,
-                    avatar = avatar
-                )
-                alteViewModel.saveUserDetails(userDetails) { successful ->
-                    if (successful) {
-                        navigateToHomeFragment()
+                if (usernameIsValid(username)) {
+                    val currentUser = firebase.currentUser
+                    val uid = currentUser?.uid
 
-                        // Update the usernameSetStatus in the viewModel
-                        alteViewModel.updateUsernameSetStatus(true)
+                    if (uid != null) {
+                        saveProgressBar.visibility = View.VISIBLE
+                        saveButton.text = getString(R.string.empty_text)
+                        saveButton.isEnabled = false
+                        val bundle = UserUploadBundle(
+                            about, avatar, dob, gender, location, name, status, uid, username
+                        )
+
+                        alteViewModel.saveUserDetails(
+                            bundle,
+                        ) { successful ->
+                            if (successful) {
+                                navigateToMessagesFragment()
+
+                                // Update the usernameSetStatus in the viewModel
+                                alteViewModel.updateUsernameSetStatus(true)
+                            }
+                            saveProgressBar.visibility = View.GONE
+                            saveButton.text = getString(R.string.save)
+                            saveButton.isEnabled = true
+                        }
                     }
-                    saveProgressBar.visibility = View.GONE
-                    saveButton.text = getString(R.string.save)
                 }
             }
         }
     }
 
-    private fun navigateToHomeFragment() {
-        findNavController().navigate(R.id.action_completeRegistrationFragment_to_homeFragment)
+    private fun navigateToMessagesFragment() {
+        findNavController().navigate(R.id.action_completeRegistrationFragment_to_messagesFragment)
     }
 
     private fun usernameIsValid(username: String): Boolean {
         binding.apply {
             // Define the regex pattern
-            val regexPattern = "^[a-zA-Z0-9]{4,20}$"
+            val regexPattern = "^[a-zA-Z0-9_]{4,20}$"
 
             if (username.isEmpty()) {
                 // Show error message
@@ -273,12 +289,14 @@ class CompleteRegistrationFragment : Fragment() {
     private val pickMedia =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             if (uri != null) {
+
                 binding.apply {
                     cropImageView.setImageUriAsync(uri)
                     cropImageView.setAspectRatio(1, 1)
 
                     // show the cropping layout
                     cropImageLayout.visibility = View.VISIBLE
+                    isCropImageLayoutVisible = true
 
                     doneCrop.setOnClickListener {
 
@@ -290,7 +308,7 @@ class CompleteRegistrationFragment : Fragment() {
                         sampleImageLayout.visibility = View.GONE
 
                         val croppedBitmap = cropImageView.getCroppedImage()
-                        val compressedBitmap = croppedBitmap?.let { it1 -> compressBitmap(it1) }
+                        val compressedBitmap = croppedBitmap?.let { it1 -> imageHandler.compressBitmap(it1) }
 
                         avatarBitmapHolder = compressedBitmap!!
 
@@ -302,10 +320,12 @@ class CompleteRegistrationFragment : Fragment() {
                         progressBar.visibility = View.GONE
 
                         isSampleImageLayoutVisible = false
+                        isCropImageLayoutVisible = false
                     }
 
                     cancelCrop.setOnClickListener {
                         cropImageLayout.visibility = View.GONE
+                        isCropImageLayoutVisible = false
                     }
 
                     rotateCrop.setOnClickListener {
@@ -315,37 +335,32 @@ class CompleteRegistrationFragment : Fragment() {
             }
         }
 
-    private fun compressBitmap(bitmap: Bitmap): Bitmap {
-        val outputStream = ByteArrayOutputStream()
-        bitmap.compress(
-            Bitmap.CompressFormat.JPEG,
-            80,
-            outputStream
-        ) // Adjust compression quality as needed
-        val compressedByteArray = outputStream.toByteArray()
-        return BitmapFactory.decodeByteArray(compressedByteArray, 0, compressedByteArray.size)
-    }
-
     private fun showDatePickerDialog() {
         dialogManager.showDatePickerDialog(this) { pickedDate ->
             if (pickedDate != null) {
-                selectedDate = pickedDate
                 updateDOBETV(pickedDate)
             }
         }
     }
 
     private fun updateDOBETV(pickedDate: Calendar) {
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        val formattedDate = dateFormat.format(pickedDate.time)
+        val formattedDate = parseDobToString(pickedDate)
+
+        selectedDate = formattedDate
 
         binding.dobEt.text = formattedDate
+    }
+
+    private fun parseDobToString(pickedDate: Calendar): String {
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        return dateFormat.format(pickedDate.time)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
         // Save the state of flags
+        outState.putBoolean("isCropImageLayoutVisible", isCropImageLayoutVisible)
         outState.putBoolean("isSampleImageLayoutVisible", isSampleImageLayoutVisible)
         outState.putBoolean("isExpandedImageLayoutVisible", isExpandedImageLayoutVisible)
     }
@@ -354,12 +369,18 @@ class CompleteRegistrationFragment : Fragment() {
         super.onViewStateRestored(savedInstanceState)
 
         // Restore the state of flags
+        isCropImageLayoutVisible =
+            savedInstanceState?.getBoolean("isCropImageLayoutVisible") ?: false
         isSampleImageLayoutVisible =
             savedInstanceState?.getBoolean("isSampleImageLayoutVisible") ?: false
         isExpandedImageLayoutVisible =
             savedInstanceState?.getBoolean("isExpandedImageLayoutVisible") ?: false
 
         binding.apply {
+            // Reset cropImage layout visibility
+            if (isCropImageLayoutVisible) {
+                cropImageLayout.visibility = View.VISIBLE
+            }
             // Reset imageSample layout visibility
             if (isSampleImageLayoutVisible) {
                 sampleImageLayout.visibility = View.VISIBLE

@@ -2,7 +2,6 @@ package com.rgbstudios.alte.data.remote
 
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -17,14 +16,17 @@ class FirebaseAccess {
     private val storage = FirebaseStorage.getInstance()
     private val crashlytics = Firebase.crashlytics
 
+    val currentUser = auth.currentUser
+
     fun signIn(email: String, pass: String, callback: (Boolean, String?) -> Unit) {
         auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
             if (it.isSuccessful) {
                 callback(true, null)
             } else {
+                // Todo change wrong password error message
                 val errorMessage =
                     it.exception?.message?.substringAfter(": ")
-                        ?: "Unknown error occurred!\nTry Again"
+                        ?: "Error signing in!\nTry Again"
                 callback(false, errorMessage)
             }
         }
@@ -37,7 +39,7 @@ class FirebaseAccess {
             } else {
                 val errorMessage =
                     it.exception?.message?.substringAfter(": ")
-                        ?: "Unknown error occurred!\nTry Again"
+                        ?: "Error signing up!\nTry Again"
                 callback(false, errorMessage)
             }
         }
@@ -50,76 +52,6 @@ class FirebaseAccess {
         } catch (e: Exception) {
             callback(false, e.message)
         }
-    }
-
-    fun fetchSignInMethodsForUser(callback: (List<String>?) -> Unit) {
-
-        val user = auth.currentUser
-        val email = user?.email
-
-        if (email != null) {
-            // Check if the email is associated with any user account
-            auth.fetchSignInMethodsForEmail(email)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val providersList = mutableListOf<String>()
-                        val result = task.result
-                        if (result != null && result.signInMethods != null) {
-                            // Get the list of linked providers
-                            val linkedProviders = result.signInMethods
-                            // Now you can check which providers are linked to this email
-                            if (linkedProviders != null) {
-                                if (linkedProviders.contains("google.com")) {
-                                    // Google provider is linked
-                                    providersList.add("google")
-                                }
-
-                                if (linkedProviders.contains("facebook.com")) {
-                                    // Facebook provider is linked
-                                    providersList.add("facebook")
-                                }
-                                // Return the list of linked providers
-                                callback(providersList)
-                            } else {
-                                // No providers linked to this email
-                                callback(emptyList())
-                            }
-                        } else {
-                            // Handle the exception
-                            val errorMessage =
-                                if (task.exception is FirebaseAuthUserCollisionException) {
-                                    // Email is associated with multiple accounts, handle accordingly
-                                    "Email is associated with multiple accounts."
-                                } else {
-                                    // Some other error occurred, handle accordingly
-                                    "Failed to fetch sign-in methods."
-                                }
-                            addLog(errorMessage)
-                            callback(null)
-                        }
-                    } else {
-                        // Handle the exception
-                        val errorMessage = task.exception?.message ?: "Unknown error occurred!"
-                        addLog(errorMessage)
-                        callback(null)
-                    }
-                }
-        }
-    }
-
-
-    fun changeEmail(newEmail: String, callback: (Boolean, String?) -> Unit) {
-        val user = auth.currentUser
-
-        user?.updateEmail(newEmail)
-            ?.addOnCompleteListener {
-                if (it.isSuccessful) {
-                    callback(true, null)
-                } else {
-                    val errorMessage = it.exception?.message?.substringAfter(": ")
-                    callback(false, errorMessage ?: "Failed to update email.")
-                }
-            }
     }
 
 
@@ -165,35 +97,44 @@ class FirebaseAccess {
             }
     }
 
-    fun getTasksListRef(userId: String): DatabaseReference {
+    fun getUserListRef(): DatabaseReference {
 
         return database.reference
             .child("users")
-            .child(userId)
-            .child("tasks")
     }
 
-    fun getCategoriesListRef(userId: String): DatabaseReference {
+    fun getPeepListRef(): DatabaseReference {
 
         return database.reference
-            .child("users")
-            .child(userId)
-            .child("categories")
+            .child("peeps")
     }
 
-    fun getUserDetailsRef(userId: String): DatabaseReference {
-
-        return database.reference
-            .child("users")
-            .child(userId)
-            .child("userDetails")
-    }
-
-    fun getAvatarStorageRef(userId: String): StorageReference {
+    fun getAvatarStorageRef(uid: String): StorageReference {
 
         return storage.reference
             .child("avatars")
-            .child(userId)
+            .child(uid)
+    }
+
+    fun getPeepStorageRef(uid: String): StorageReference {
+
+        return storage.reference
+            .child("peeps")
+            .child(uid)
+    }
+
+    fun getChatStorageRef(uid: String): StorageReference {
+
+        return storage.reference
+            .child("chats")
+            .child(uid)
+    }
+
+    fun getChatListRef(uid: String): DatabaseReference {
+
+        return database.reference
+            .child("chats")
+            .child(uid)
     }
 
     fun addLog(message: String) {
