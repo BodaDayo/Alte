@@ -1,36 +1,29 @@
 package com.rgbstudios.alte.ui.fragments
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.auth.FirebaseAuth
+import com.rgbstudios.alte.AlteApplication
 import com.rgbstudios.alte.R
 import com.rgbstudios.alte.data.remote.FirebaseAccess
 import com.rgbstudios.alte.data.repository.AlteRepository
-import com.rgbstudios.alte.utils.ToastManager
 import com.rgbstudios.alte.viewmodel.AlteViewModel
 import com.rgbstudios.alte.viewmodel.AlteViewModelFactory
 
 class SplashFragment : Fragment() {
 
-    private lateinit var auth: FirebaseAuth
     private var delayedNavigationHandler: Handler? = null
-    private val toastManager = ToastManager()
 
     private val firebase = FirebaseAccess()
 
-    private val alteViewModel: AlteViewModel by viewModels {
-        AlteViewModelFactory(requireActivity().application, AlteRepository(firebase))
+    private val alteViewModel: AlteViewModel by activityViewModels {
+        AlteViewModelFactory(requireActivity().application as AlteApplication, AlteRepository(firebase))
     }
 
     override fun onCreateView(
@@ -43,8 +36,6 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val firebase = FirebaseAccess()
-        auth = firebase.auth
 
         // Call the function to handle delayed navigation
         handleDelayedNavigation()
@@ -64,7 +55,7 @@ class SplashFragment : Fragment() {
         // Create a new Handler for delayed navigation
         delayedNavigationHandler = Handler(Looper.myLooper()!!)
 
-        delayedNavigationHandler?.postDelayed(Runnable {
+        delayedNavigationHandler?.postDelayed({
 
             // Check if it's the first launch
             val isFirstLaunch = alteViewModel.isFirstLaunch.value ?: true
@@ -75,6 +66,8 @@ class SplashFragment : Fragment() {
                 findNavController().navigate(R.id.action_splashFragment_to_onboardingFragment)
 
             } else {
+                val auth = firebase.auth
+
                 // It's not first launch
                 if (auth.currentUser != null) {
 
@@ -82,8 +75,8 @@ class SplashFragment : Fragment() {
 
                     if (isUsernameSet) {
 
-                        // If username is set, navigate to HomeFragment
-                        findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
+                        // If username is set, navigate to MessagesFragment
+                        findNavController().navigate(R.id.action_splashFragment_to_messagesFragment)
 
                     } else {
                         // Navigate to completeRegistrationFragment

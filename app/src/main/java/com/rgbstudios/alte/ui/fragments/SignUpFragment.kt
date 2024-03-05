@@ -1,8 +1,5 @@
 package com.rgbstudios.alte.ui.fragments
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -10,35 +7,28 @@ import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
+import com.rgbstudios.alte.AlteApplication
 import com.rgbstudios.alte.R
 import com.rgbstudios.alte.data.remote.FirebaseAccess
 import com.rgbstudios.alte.data.repository.AlteRepository
 import com.rgbstudios.alte.databinding.FragmentSignUpBinding
-import com.rgbstudios.alte.utils.AvatarManager
 import com.rgbstudios.alte.utils.DialogManager
 import com.rgbstudios.alte.utils.ToastManager
 import com.rgbstudios.alte.viewmodel.AlteViewModel
 import com.rgbstudios.alte.viewmodel.AlteViewModelFactory
-import java.io.ByteArrayOutputStream
 
 class SignUpFragment : Fragment() {
 
     private val firebase = FirebaseAccess()
 
-    private val alteViewModel: AlteViewModel by viewModels {
-        AlteViewModelFactory(requireActivity().application, AlteRepository(firebase))
+    private val alteViewModel: AlteViewModel by activityViewModels {
+        AlteViewModelFactory(requireActivity().application as AlteApplication, AlteRepository(firebase))
     }
 
-    private val auth = firebase.auth
     private lateinit var binding: FragmentSignUpBinding
     private val toastManager = ToastManager()
     private val dialogManager = DialogManager()
@@ -95,10 +85,11 @@ class SignUpFragment : Fragment() {
 
                                 progressBar.visibility = View.VISIBLE
                                 signUpButton.text = ""
+                                signUpButton.isEnabled = false
 
-                                firebase.signUp(email, pass) { signUpSuccessful, errorMessage ->
+                                alteViewModel.signUp(email, pass) { signUpSuccessful, errorMessage ->
                                     if (signUpSuccessful) {
-                                        progressWithSignUp(email, pass)
+                                        progressWithSignUp()
                                     } else {
                                         toastManager.showShortToast(
                                             requireContext(),
@@ -107,6 +98,7 @@ class SignUpFragment : Fragment() {
                                     }
                                     progressBar.visibility = View.GONE
                                     signUpButton.text = getString(R.string.register)
+                                    signUpButton.isEnabled = true
                                 }
 
                             } else {
@@ -145,7 +137,12 @@ class SignUpFragment : Fragment() {
 
             val spannableString = SpannableString(fullText)
             spannableString.setSpan(
-                ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.md_theme_light_secondary)),
+                ForegroundColorSpan(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.md_theme_light_secondary
+                    )
+                ),
                 privacyPolicyStart,
                 privacyPolicyEnd,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -161,13 +158,14 @@ class SignUpFragment : Fragment() {
         return email.matches(emailPattern.toRegex())
     }
 
-    private fun progressWithSignUp(email: String, pass: String) {
-
+    private fun progressWithSignUp() {
         // Update the usernameSetStatus in the viewModel
         alteViewModel.updateUsernameSetStatus(false)
-        findNavController().navigate(R.id.action_signUpFragment_to_completeRegistrationFragment)
+        navigateToCompleteRegistrationFragment()
     }
 
-
+    private fun navigateToCompleteRegistrationFragment() {
+        findNavController().navigate(R.id.action_signUpFragment_to_completeRegistrationFragment)
+    }
 
 }

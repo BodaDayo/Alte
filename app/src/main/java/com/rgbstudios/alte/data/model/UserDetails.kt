@@ -5,7 +5,9 @@ data class UserDetails(
     val avatarUri: String?,
     val dob: String?,
     val gender: String?,
-    val name: String?,
+    val location: String?,
+    val name: String,
+    val typing: String,
     val status: String,
     val uid: String,
     val username: String
