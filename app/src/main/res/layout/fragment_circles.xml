@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical"
+    tools:context=".ui.fragments.CirclesFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/watermark_light"
+            app:layout_constraintBottom_toBottomOf="@id/userDetailLayout"
+            app:layout_constraintTop_toTopOf="@id/userDetailLayout" />
+
+        <LinearLayout
+            android:id="@+id/userDetailLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/dimen_8"
+            android:paddingVertical="@dimen/dimen_24"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/popBackCircles"
+                android:layout_width="@dimen/dimen_48"
+                android:layout_height="@dimen/dimen_48"
+                android:padding="@dimen/dimen_12"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/back"
+                app:tint="@color/white" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/dimen_8">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="@dimen/dimen_48"
+                    android:layout_height="@dimen/dimen_48">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/userAvatarCircle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/user_icon" />
+
+                    <ProgressBar
+                        android:id="@+id/userAVProgressBar"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="@dimen/dimen_24"
+                        android:layout_height="@dimen/dimen_24"
+                        android:indeterminateTint="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="@dimen/dimen_8"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/fullNameCD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/your_name"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_16"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/userNameVerse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/username"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:layout_width="@dimen/dimen_48"
+                android:layout_height="@dimen/dimen_48"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/dimen_12"
+                android:src="@drawable/go_forward"
+                app:tint="@color/white" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- Layout for folk selection -->
+        <LinearLayout
+            android:id="@+id/folkSelectionLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rounded_top_corners"
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/dimen_24"
+            android:paddingHorizontal="@dimen/dimen_8">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/new_circle"
+                android:textSize="@dimen/text_18"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/selectionCounter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/selects_folks_to_add" />
+
+            <LinearLayout
+                android:id="@+id/selectedLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/selectionRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:id="@+id/separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="@dimen/dimen_4"
+                    android:background="@color/my_darker_grey" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/folksTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_8"
+                android:text="@string/folks_in_your_planet"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/planetRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:id="@+id/emptyConnections"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_16"
+                    android:gravity="center"
+                    android:text="@string/empty_connections" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/verseFragmentBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/let_s_go" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Layout for circle detail -->
+        <LinearLayout
+            android:id="@+id/circleDetailLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rounded_top_corners"
+            android:orientation="vertical"
+            android:padding="@dimen/dimen_24"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/dimen_16">
+
+                <ImageView
+                    android:id="@+id/backToSelectionBtn"
+                    android:layout_width="@dimen/dimen_48"
+                    android:layout_height="@dimen/dimen_48"
+                    android:padding="@dimen/dimen_12"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/back" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/circleImageLayout"
+                    android:layout_width="@dimen/dimen_48"
+                    android:layout_height="@dimen/dimen_48">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/circleImageViewCD"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/circular_overlay_dark_background"
+                        android:padding="@dimen/dimen_8"
+                        android:src="@drawable/camera"
+                        app:tint="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/addPeepIcon"
+                        android:layout_width="@dimen/dimen_16"
+                        android:layout_height="@dimen/dimen_16"
+                        android:background="@drawable/circular_primary_background"
+                        android:src="@drawable/add"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <EditText
+                    android:id="@+id/circleNameCD"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="@dimen/dimen_16"
+                    android:layout_weight="1"
+                    android:autofillHints="Address"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/circle_name"
+                    android:inputType="text" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/membersCounterCD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="@dimen/dimen_8"
+                android:text="@string/members_8"
+                android:textColor="?attr/colorOnPrimary"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/selectedFolksRecyclerViewCD"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/circlesFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="24sp"
+            android:src="@drawable/forward_arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
