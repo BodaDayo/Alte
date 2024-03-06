@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/search_chat"
+        android:title="@string/search"/>
+
+    <item
+        android:id="@+id/shared_media_chat"
+        android:title="@string/shared_media"/>
+
+    <item
+        android:id="@+id/report_chat"
+        android:title="@string/report"/>
+
+    <item
+        android:id="@+id/exile_chat"
+        android:title="@string/exile_citizen"/>
+
+    <item
+        android:id="@+id/ditch_chat"
+        android:title="@string/ditch_citizen"/>
+
+    <item
+        android:id="@+id/clear_chat"
+        android:title="@string/clear_chat"/>
+</menu>

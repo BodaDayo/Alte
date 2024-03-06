@@ -3,6 +3,6 @@
     android:shape="rectangle">
     <corners android:radius="@dimen/dimen_32" />
     <solid android:color="@android:color/transparent" />
-    <stroke android:color="@color/my_darker_grey" />
+    <stroke android:color="@color/my_pager_grey" />
     <stroke android:width="@dimen/stroke_width" />
 </shape>

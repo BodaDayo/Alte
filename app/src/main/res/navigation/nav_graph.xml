@@ -11,8 +11,8 @@
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
-            android:id="@+id/action_splashFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
+            android:id="@+id/action_splashFragment_to_messagesFragment"
+            app:destination="@id/messagesFragment"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
         <action
@@ -42,7 +42,6 @@
             app:popUpTo="@id/onboardingFragment"
             app:popUpToInclusive="true" />
     </fragment>
-
     <fragment
         android:id="@+id/signInFragment"
         android:name="com.rgbstudios.alte.ui.fragments.SignInFragment"
@@ -54,8 +53,8 @@
             app:popUpTo="@id/signInFragment"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_signInFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
+            android:id="@+id/action_signInFragment_to_messagesFragment"
+            app:destination="@id/messagesFragment"
             app:popUpTo="@id/signInFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -65,8 +64,8 @@
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up">
         <action
-            android:id="@+id/action_signUpFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
+            android:id="@+id/action_signUpFragment_to_messagesFragment"
+            app:destination="@id/messagesFragment"
             app:popUpTo="@id/signUpFragment"
             app:popUpToInclusive="true" />
         <action
@@ -80,7 +79,6 @@
             app:popUpTo="@id/signUpFragment"
             app:popUpToInclusive="true" />
     </fragment>
-
     <fragment
         android:id="@+id/completeRegistrationFragment"
         android:name="com.rgbstudios.alte.ui.fragments.CompleteRegistrationFragment"
@@ -88,20 +86,11 @@
         tools:layout="@layout/fragment_complete_registration">
 
         <action
-            android:id="@+id/action_completeRegistrationFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
+            android:id="@+id/action_completeRegistrationFragment_to_messagesFragment"
+            app:destination="@id/messagesFragment"
             app:popUpTo="@id/completeRegistrationFragment"
             app:popUpToInclusive="true"/>
     </fragment>
-
-    <fragment
-        android:id="@+id/editProfileFragment"
-        android:name="com.rgbstudios.alte.ui.fragments.EditProfileFragment"
-        android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile">
-
-    </fragment>
-
     <fragment
         android:id="@+id/onboardingFinalFragment"
         android:name="com.rgbstudios.alte.ui.fragments.OnboardingFinalFragment"
@@ -115,33 +104,129 @@
 
     </fragment>
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.rgbstudios.alte.ui.fragments.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        android:id="@+id/messagesFragment"
+        android:name="com.rgbstudios.alte.ui.fragments.MessagesFragment"
+        android:label="fragment_messages"
+        tools:layout="@layout/fragment_messages" >
         <action
-            android:id="@+id/action_homeFragment_to_alteVerseFragment"
+            android:id="@+id/action_messagesFragment_to_alteVerseFragment"
             app:destination="@id/alteVerseFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_signInFragment"
+            android:id="@+id/action_messagesFragment_to_signInFragment"
             app:destination="@id/signInFragment"
-            app:popUpTo="@id/homeFragment"
+            app:popUpTo="@id/messagesFragment"
             app:popUpToInclusive="true"/>
-    </fragment>
-    <fragment
-        android:id="@+id/otpFragment"
-        android:name="com.rgbstudios.alte.ui.fragments.OtpFragment"
-        android:label="fragment_otp"
-        tools:layout="@layout/fragment_otp" >
         <action
-            android:id="@+id/action_otpFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/otpFragment"
-            app:popUpToInclusive="true"/>
+            android:id="@+id/action_messagesFragment_to_circlesFragment"
+            app:destination="@id/circlesFragment" />
+        <action
+            android:id="@+id/action_messagesFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_messagesFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_messagesFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_messagesFragment_to_peepsFragment"
+            app:destination="@id/peepsFragment" />
+        <action
+            android:id="@+id/action_messagesFragment_to_broadcastFragment"
+            app:destination="@id/broadcastFragment" />
+        <action
+            android:id="@+id/action_messagesFragment_to_starredMessagesFragment"
+            app:destination="@id/starredMessagesFragment" />
+        <action
+            android:id="@+id/action_messagesFragment_to_citizenProfileFragment"
+            app:destination="@id/citizenProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/alteVerseFragment"
         android:name="com.rgbstudios.alte.ui.fragments.AlteVerseFragment"
         android:label="fragment_alte_verse"
-        tools:layout="@layout/fragment_alte_verse" />
+        tools:layout="@layout/fragment_alte_verse" >
+        <action
+            android:id="@+id/action_alteVerseFragment_to_chatFragment"
+            app:destination="@id/chatFragment"
+            app:popUpTo="@id/alteVerseFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_alteVerseFragment_to_profileFragment"
+            app:destination="@id/profileFragment"/>
+        <action
+            android:id="@+id/action_alteVerseFragment_to_citizenProfileFragment"
+            app:destination="@id/citizenProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/circlesFragment"
+        android:name="com.rgbstudios.alte.ui.fragments.CirclesFragment"
+        android:label="fragment_circles"
+        tools:layout="@layout/fragment_circles" >
+        <action
+            android:id="@+id/action_circlesFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_circlesFragment_to_alteVerseFragment"
+            app:destination="@id/alteVerseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.rgbstudios.alte.ui.fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.rgbstudios.alte.ui.fragments.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.rgbstudios.alte.ui.fragments.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_chatFragment_to_citizenProfileFragment"
+            app:destination="@id/citizenProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/peepsFragment"
+        android:name="com.rgbstudios.alte.ui.fragments.PeepsFragment"
+        android:label="fragment_peeps"
+        tools:layout="@layout/fragment_peeps" >
+        <action
+            android:id="@+id/action_peepsFragment_to_citizenProfileFragment"
+            app:destination="@id/citizenProfileFragment" />
+        <action
+            android:id="@+id/action_peepsFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/broadcastFragment"
+        android:name="com.rgbstudios.alte.ui.fragments.BroadcastFragment"
+        android:label="fragment_broadcast"
+        tools:layout="@layout/fragment_broadcast" >
+        <action
+            android:id="@+id/action_broadcastFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/citizenProfileFragment"
+        android:name="com.rgbstudios.alte.ui.fragments.CitizenProfileFragment"
+        android:label="fragment_citizen_profile"
+        tools:layout="@layout/fragment_citizen_profile" />
+    <fragment
+        android:id="@+id/starredMessagesFragment"
+        android:name="com.rgbstudios.alte.ui.fragments.StarredMessagesFragment"
+        android:label="fragment_starred_messages"
+        tools:layout="@layout/fragment_starred_messages" >
+        <action
+            android:id="@+id/action_starredMessagesFragment_to_chatFragment"
+            app:destination="@id/chatFragment"
+            app:popUpTo="@id/starredMessagesFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
 </navigation>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mute_peep"
+        android:title="@string/mute_citizen"/>
+
+    <item
+        android:id="@+id/chat_peep"
+        android:title="@string/chat_with_citizen"/>
+
+    <item
+        android:id="@+id/view_citizen_peep"
+        android:title="@string/view_citizen"/>
+
+    <item
+        android:id="@+id/report_peep"
+        android:title="@string/report"/>
+
+</menu>

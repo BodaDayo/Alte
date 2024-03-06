@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="text_10">10sp</dimen>
+    <dimen name="text_12">12sp</dimen>
     <dimen name="text_14">14sp</dimen>
     <dimen name="text_16">16sp</dimen>
     <dimen name="text_18">18sp</dimen>
@@ -7,16 +9,46 @@
     <dimen name="text_32">32sp</dimen>
     <dimen name="text_36">36sp</dimen>
     <dimen name="text_40">40sp</dimen>
+    <dimen name="dimen_zero">0dp</dimen>
+    <dimen name="dimen_1_5">1.5dp</dimen>
+    <dimen name="dimen_2">2dp</dimen>
+    <dimen name="dimen_4">4dp</dimen>
+    <dimen name="dimen_6">6dp</dimen>
+    <dimen name="dimen_7">7dp</dimen>
     <dimen name="dimen_8">8dp</dimen>
+    <dimen name="dimen_8_75">8.75dp</dimen>
     <dimen name="dimen_10">10dp</dimen>
+    <dimen name="dimen_12">12dp</dimen>
+    <dimen name="dimen_14">14dp</dimen>
     <dimen name="dimen_16">16dp</dimen>
+    <dimen name="dimen_17_5">17.5dp</dimen>
+    <dimen name="dimen_18">18dp</dimen>
     <dimen name="dimen_20">20dp</dimen>
     <dimen name="dimen_24">24dp</dimen>
+    <dimen name="dimen_28">28dp</dimen>
     <dimen name="dimen_32">32dp</dimen>
+    <dimen name="dimen_35">35dp</dimen>
+    <dimen name="dimen_36">36dp</dimen>
+    <dimen name="dimen_40">40dp</dimen>
+    <dimen name="dimen_48">48dp</dimen>
+    <dimen name="dimen_50">50dp</dimen>
+    <dimen name="dimen_56">56dp</dimen>
     <dimen name="dimen_64">64dp</dimen>
-    <dimen name="dimen_128">128dp</dimen>
+    <dimen name="dimen_70">70dp</dimen>
     <dimen name="dimen_80">80dp</dimen>
+    <dimen name="dimen_88">88dp</dimen>
+    <dimen name="dimen_104">104dp</dimen>
+    <dimen name="dimen_116">116dp</dimen>
+    <dimen name="dimen_128">128dp</dimen>
+    <dimen name="dimen_136">136dp</dimen>
+    <dimen name="dimen_140">140dp</dimen>
+    <dimen name="dimen_144">144dp</dimen>
+    <dimen name="dimen_168">168dp</dimen>
+    <dimen name="dimen_360">360dp</dimen>
+    <dimen name="stroke_width">1dp</dimen>
     <dimen name="launcher_height">160dp</dimen>
-    <dimen name="image_height">380dp</dimen>
+    <dimen name="sample_image_height">192dp</dimen>
+    <dimen name="chat_image_height">240dp</dimen>
+    <dimen name="image_height">320dp</dimen>
 
 </resources>

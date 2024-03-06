@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/search_messages"
+        android:title="@string/search"/>
+
+    <item
+        android:id="@+id/new_circle"
+        android:title="@string/new_circle"/>
+
+    <item
+        android:id="@+id/new_broadcast"
+        android:title="@string/new_broadcast"/>
+
+    <item
+        android:id="@+id/starred_messages"
+        android:title="@string/starred_messages"/>
+
+    <item
+        android:id="@+id/profile_messages"
+        android:title="@string/profile"/>
+
+    <item
+        android:id="@+id/settings"
+        android:title="@string/settings"/>
+
+    <item
+        android:id="@+id/logout"
+        android:title="@string/log_out"/>
+</menu>
