@@ -1,21 +1,18 @@
 package com.rgbstudios.alte.ui.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.rgbstudios.alte.R
 import com.rgbstudios.alte.data.model.UserDetails
-import com.rgbstudios.alte.data.remote.FirebaseAccess
 import com.rgbstudios.alte.databinding.ItemInvitesBinding
-import com.rgbstudios.alte.utils.AvatarManager
 import com.rgbstudios.alte.utils.ToastManager
 import com.rgbstudios.alte.viewmodel.AlteViewModel
 
+@SuppressLint("NotifyDataSetChanged")
 class InvitesAdapter(private val context: Context, private val viewModel: AlteViewModel) :
     RecyclerView.Adapter<InvitesAdapter.InvitesViewHolder>() {
 
@@ -40,8 +37,8 @@ class InvitesAdapter(private val context: Context, private val viewModel: AlteVi
         holder.binding.apply {
             val currentUser = viewModel.currentUser.value
 
-            usernameInvites.text = user.username
-            statusInvitesTV.text = user.status.replaceFirstChar { it.uppercase() }
+            fullNameInvites.text = user.name
+            usernameInvites.text = context.getString(R.string.user_name_template, user.username)
 
             Glide.with(context)
                 .asBitmap()
@@ -49,10 +46,18 @@ class InvitesAdapter(private val context: Context, private val viewModel: AlteVi
                 .placeholder(R.drawable.user_icon)
                 .into(userAvatarInvites)
 
-            withdrawTextTV.setOnClickListener {
+            revokeTextTV.setOnClickListener {
                 if (currentUser != null) {
-                    viewModel.withdrawRequest(user.uid, currentUser.uid) {
-                        toastManager.showLongToast(context, "Connection request withdrawn")
+                    viewModel.withdrawRequest(user.uid, currentUser.uid) { isSuccessful, _ ->
+                        if (isSuccessful) {
+                            toastManager.showLongToast(context, "Connection request withdrawn")
+                        } else {
+                            toastManager.showLongToast(
+                                context,
+                                "Request withdrawal failed"
+                            )
+                        }
+                        viewModel.startUserListListener()
                     }
                 }
             }

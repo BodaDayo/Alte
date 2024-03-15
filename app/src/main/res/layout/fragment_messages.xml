@@ -1,207 +1,356 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    android:orientation="vertical"
     tools:context=".ui.fragments.MessagesFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!-- Main Container -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_168"
-            android:scaleType="centerCrop"
-            android:src="@drawable/watermark_light"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/dimen_16"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dimen_16"
-                    android:text="@string/welcome_og"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
+                android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/moreOptions"
-                    android:layout_width="@dimen/dimen_24"
-                    android:layout_height="@dimen/dimen_24"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/more_vert"
-                    app:menu="@menu/messages_overflow_menu"
-                    app:tint="@color/white" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/dimen_8"
-                android:orientation="horizontal">
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/watermark_light"
+                    app:layout_constraintBottom_toBottomOf="@id/peepLayout"
+                    app:layout_constraintTop_toTopOf="@id/peepLayout" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:id="@+id/peepLayout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
                     android:orientation="vertical"
-                    android:padding="@dimen/dimen_16">
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="@dimen/dimen_56"
-                        android:layout_height="@dimen/dimen_56">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/dimen_8"
+                        android:paddingTop="@dimen/dimen_8">
 
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/userImagePeep"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/circular_primary_background"
-                            android:padding="@dimen/dimen_2"
-                            app:civ_border_color="?attr/colorPrimary"
-                            app:civ_border_width="@dimen/dimen_2" />
+                        <TextView
+                            android:id="@+id/welcomeTV"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dimen_8"
+                            android:layout_weight="1"
+                            android:text="@string/welcome_og"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
 
                         <ImageView
-                            android:id="@+id/addPeepIcon"
-                            android:layout_width="@dimen/dimen_24"
-                            android:layout_height="@dimen/dimen_24"
-                            android:background="@drawable/circular_overlay_background"
-                            android:src="@drawable/add"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/md_theme_light_primary" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                            android:id="@+id/moreOptions"
+                            android:layout_width="@dimen/dimen_48"
+                            android:layout_height="@dimen/dimen_48"
+                            android:layout_gravity="center_vertical"
+                            android:padding="@dimen/dimen_12"
+                            android:src="@drawable/more_vert"
+                            app:menu="@menu/messages_overflow_menu"
+                            app:tint="@color/white" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="@dimen/dimen_8">
+
+                        <LinearLayout
+                            android:id="@+id/myPeepLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="@dimen/dimen_16"
+                            android:paddingVertical="@dimen/dimen_8">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="@dimen/dimen_50"
+                                android:layout_height="@dimen/dimen_50">
+
+                                <ImageView
+                                    android:id="@+id/overlayPeep"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/circular_overlay_background"
+                                    android:padding="@dimen/dimen_8"
+                                    android:src="@drawable/camera"
+                                    app:tint="@color/black" />
+
+
+                                <ImageView
+                                    android:id="@+id/addPeepIcon"
+                                    android:layout_width="@dimen/dimen_16"
+                                    android:layout_height="@dimen/dimen_16"
+                                    android:background="@drawable/circular_primary_background"
+                                    android:src="@drawable/add"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent" />
+
+                                <ProgressBar
+                                    android:id="@+id/myPeepProgressBar"
+                                    style="?android:attr/progressBarStyle"
+                                    android:layout_width="@dimen/dimen_24"
+                                    android:layout_height="@dimen/dimen_24"
+                                    android:indeterminateTint="@color/white"
+                                    android:visibility="gone"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <TextView
+                                android:id="@+id/addPeepTV"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dimen_8"
+                                android:text="@string/add_peep"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/text_12" />
+
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/peepRecyclerView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/convoLayout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_top_corners">
+
+                <LinearLayout
+                    android:id="@+id/emptyConvoLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/launcher_height"
+                        android:src="@drawable/no_messages" />
 
                     <TextView
-                        android:id="@+id/userNameAvatar"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_8"
-                        android:text="Add Peep"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_12" />
+                        android:gravity="center"
+                        android:text="@string/no_current_chats" />
 
                 </LinearLayout>
 
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottieAnimationView"
+                    android:layout_width="@dimen/dimen_64"
+                    android:layout_height="@dimen/dimen_64"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:lottie_autoPlay="true"
+                    app:lottie_fileName="progress_animation.json"
+                    app:lottie_loop="true"
+                    app:lottie_speed="2" />
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/searchView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_16"
+                    android:layout_marginTop="@dimen/dimen_16"
+                    android:imeOptions="actionSearch"
+                    android:visibility="gone"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    app:iconifiedByDefault="false"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:queryBackground="@android:color/transparent"
+                    app:queryHint="Search..." />
+
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/peepRecyclerView"
+                    android:id="@+id/convoRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/dimen_32"
+                    app:layout_constraintTop_toBottomOf="@id/searchView" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/chatSelectedLayout"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:backgroundTint="@color/highlight_tint"
+                    android:layout_marginHorizontal="@dimen/dimen_24"
+                    android:layout_marginTop="@dimen/dimen_16"
+                    app:cardCornerRadius="@dimen/dimen_16"
+                    app:layout_constraintTop_toBottomOf="@id/searchView">
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dimen_12">
+
+                        <TextView
+                            android:id="@+id/selectionCounter"
+                            android:layout_width="0sp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/dimen_12"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textSize="@dimen/text_18"
+                            android:textStyle="bold"
+                            tools:text="0" />
+
+                        <ImageView
+                            android:id="@+id/selectAllIV"
+                            android:layout_width="0sp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="@dimen/dimen_12"
+                            android:layout_weight="1"
+                            android:src="@drawable/list_check_all" />
+
+                        <ImageView
+                            android:id="@+id/markUnreadIV"
+                            android:layout_width="0sp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/dimen_12"
+                            android:layout_weight="1"
+                            android:src="@drawable/mark_unread" />
+
+                        <ImageView
+                            android:id="@+id/clearChatIV"
+                            android:layout_width="0sp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/dimen_12"
+                            android:layout_weight="1"
+                            android:src="@drawable/clear_reflect" />
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="24sp"
+                    android:src="@drawable/leaf"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!-- Image Cropper Container -->
+    <LinearLayout
+        android:id="@+id/crop_image_layout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@drawable/rounded_top_corners">
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:orientation="vertical"
+        android:visibility="gone">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/navigatorBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_32"
-            android:text="Open Chat"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <!-- Image Cropper fill the available height -->
+        <com.canhub.cropper.CropImageView
+            android:id="@+id/cropImageView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-
-        <TextView
-            android:id="@+id/texty"
+        <LinearLayout
+            android:id="@+id/cropControlsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_16"
-            android:gravity="center"
-            android:text="Welcome! You're now signed In"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:gravity="center|center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/dimen_16">
 
-        <TextView
-            android:id="@+id/texty2"
+            <TextView
+                android:id="@+id/cancelCrop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_16"
+                android:text="@string/cancel"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_16" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/rotateCrop"
+                android:layout_width="@dimen/dimen_48"
+                android:layout_height="@dimen/dimen_48"
+                android:padding="@dimen/dimen_12"
+                android:src="@drawable/rotate"
+                app:tint="@color/white" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/doneCrop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_16"
+                android:text="@string/done"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_16" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/captionCrop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_16"
-            android:gravity="center"
-            android:text="You have no chats yet"
-            app:layout_constraintTop_toBottomOf="@id/texty" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/showAnim"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_16"
-            android:text="Show"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/texty2" />
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottieAnimationView"
-            android:layout_width="@dimen/dimen_64"
-            android:layout_height="@dimen/dimen_64"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="progress_animation.json"
-            app:lottie_loop="true"
-            app:lottie_speed="2" />
-
-        <ImageButton
-            android:id="@+id/closer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_16"
-            android:background="?attr/colorSurface"
+            android:layout_marginHorizontal="@dimen/dimen_24"
+            android:layout_marginTop="@dimen/dimen_8"
+            android:layout_marginBottom="@dimen/dimen_24"
+            android:autofillHints="Caption"
+            android:background="@drawable/rounded_stroke_background"
+            android:hint="@string/insert_caption"
+            android:inputType="textMultiLine"
+            android:maxLines="6"
+            android:orientation="horizontal"
             android:padding="@dimen/dimen_16"
-            android:src="@drawable/close"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textColor="@color/white"
+            android:textColorHint="@color/my_darker_grey" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/logoutBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_24"
-            android:backgroundTint="?attr/colorSecondary"
-            android:text="Logout"
-            android:textColor="?attr/colorOnSecondary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="24sp"
-            android:src="@drawable/leaf"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+    </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
