@@ -1,95 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/verseUserLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/dimen_4"
-    app:cardCornerRadius="@dimen/dimen_8">
+    android:background="@color/md_theme_light_primary"
+    android:baselineAligned="false"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/dimen_16"
+    android:paddingVertical="@dimen/dimen_12">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/dimen_48"
+        android:layout_height="@dimen/dimen_48">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userAvatarVerse"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/user_icon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="@dimen/dimen_8">
+        android:layout_marginHorizontal="@dimen/dimen_8"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="@dimen/dimen_56"
-            android:layout_height="@dimen/dimen_56">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/userAvatarVerse"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/user_icon"
-                app:civ_border_color="?attr/colorPrimary"
-                app:civ_border_width="@dimen/dimen_2"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dimen_8"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/usernameVerse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_16"
-                android:textStyle="bold"
-                tools:text="NameUse001" />
-
-            <TextView
-                android:id="@+id/fullNameVerse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Jane Doe" />
-        </LinearLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <TextView
+            android:id="@+id/fullNameVerse"
             android:layout_width="wrap_content"
-            android:layout_marginHorizontal="@dimen/dimen_16"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:text="@string/citizen"
+            android:textSize="@dimen/text_16"
+            android:textStyle="bold" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/connectButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dimen_8"
-                android:text="@string/connect"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/sentTextTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Invite Sent"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-            <ProgressBar
-                android:id="@+id/connectProgressBar"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="@dimen/dimen_24"
-                android:layout_height="@dimen/dimen_24"
-                android:visibility="gone"
-                android:indeterminateTint="?attr/colorOnPrimary"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/usernameVerse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/username" />
 
     </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/connectionControlsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/connectButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:padding="@dimen/dimen_8"
+            android:text="@string/connect"
+            app:elevation="@dimen/dimen_4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/invitedTextTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/invite_sent"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/requestedTextTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/invite_received"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/connectProgressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="@dimen/dimen_24"
+            android:layout_height="@dimen/dimen_24"
+            android:indeterminateTint="?attr/colorOnPrimary"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/folkTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/dimen_16"
+        android:textSize="@dimen/text_16"
+        android:textStyle="bold"
+        android:visibility="gone"
+        tools:text="@string/folk" />
+</LinearLayout>
+

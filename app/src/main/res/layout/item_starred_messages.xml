@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/starredLayout"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/selectedView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:background="@color/md_theme_light_secondaryContainer_overlay"
+        app:layout_constraintBottom_toBottomOf="@id/chatItemLayout"
+        app:layout_constraintTop_toTopOf="@id/chatItemLayout" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chatItemLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dimen_8"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dimen_4"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/userDetailLayoutStar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingVertical="@dimen/dimen_8"
+            >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="@dimen/dimen_24"
+                android:layout_height="@dimen/dimen_24">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/userAvatarStar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/user_icon" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_8"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/senderTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/you"
+                    android:textSize="@dimen/text_16"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_12"
+                    android:layout_height="@dimen/dimen_12"
+                    app:tint="@color/md_theme_light_primary"
+                    android:src="@drawable/send_filled"
+                    android:layout_marginHorizontal="@dimen/dimen_8"/>
+
+                <TextView
+                    android:id="@+id/receiverTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/you"
+                    android:textSize="@dimen/text_16"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_constraintTop_toBottomOf="@id/userDetailLayoutStar"
+            android:layout_width="match_parent"
+            android:paddingStart="@dimen/dimen_24"
+            android:layout_height="wrap_content"
+            tools:ignore="RtlSymmetry">
+
+        <LinearLayout
+            android:id="@+id/messageLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_grey_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/chatImage"
+                android:layout_width="@dimen/chat_image_height"
+                android:layout_height="@dimen/chat_image_height"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/dimen_8"
+                android:src="@drawable/asset7"
+                android:contentDescription="@string/message_image" />
+
+            <TextView
+                android:id="@+id/messageTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minEms="6"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="@dimen/dimen_12"
+                tools:text="@string/privacy" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@id/messageLayout"
+            app:layout_constraintTop_toBottomOf="@id/messageLayout"
+            tools:ignore="UseCompoundDrawables">
+
+            <TextView
+                android:id="@+id/timeStampTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="@dimen/dimen_4"
+                android:textColor="@color/my_darker_grey"
+                android:textSize="@dimen/text_12"
+                tools:text="24/02/2024 08:00AM" />
+
+            <ImageView
+                android:id="@+id/starIV"
+                android:layout_width="@dimen/dimen_14"
+                android:layout_height="@dimen/dimen_14"
+                android:src="@drawable/star"
+                android:layout_margin="@dimen/dimen_4"
+                app:tint="@color/my_darker_grey"
+                android:contentDescription="@string/message_starred" />
+
+        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

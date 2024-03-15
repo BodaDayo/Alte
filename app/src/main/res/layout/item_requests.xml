@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/dimen_4"
-    app:cardCornerRadius="@dimen/dimen_8">
+    app:cardCornerRadius="@dimen/dimen_16">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,44 +17,46 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="@dimen/dimen_56"
-                android:layout_height="@dimen/dimen_56">
+                android:layout_width="@dimen/dimen_48"
+                android:layout_height="@dimen/dimen_48">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/userAvatarRequests"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/user_icon"
-                    app:civ_border_color="?attr/colorPrimary"
-                    app:civ_border_width="@dimen/dimen_2" />
+                    android:src="@drawable/user_icon" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginHorizontal="@dimen/dimen_16"
                 android:layout_weight="1"
-                android:layout_gravity="center_vertical"
                 android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/fullNameRequests"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/folk"
+                    android:textSize="@dimen/text_16"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/usernameRequests"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_16"
-                    android:textStyle="bold"
-                    tools:text="NameUse001" />
+                    android:textColor="@color/my_darker_grey"
+                    android:text="@string/username" />
 
-                <TextView
-                    android:id="@+id/fullnameRequestsTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="John D. Doe" />
             </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -69,24 +71,30 @@
                 android:id="@+id/acceptTV"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:padding="@dimen/dimen_8"
-                android:textColor="?attr/colorPrimary"
                 android:text="@string/accept"
-                android:textStyle="bold"
-                android:textSize="16sp"/>
+                android:textColor="?attr/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dimen_4"
+                android:background="@color/my_darker_grey" />
 
             <TextView
                 android:id="@+id/declineTV"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:padding="@dimen/dimen_8"
-                android:text="@string/cancel"
-                android:textSize="16sp"
-                android:textColor="?colorOnSurface" />
+                android:text="@string/decline"
+                android:textColor="?colorOnSurface"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
