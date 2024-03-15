@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Alté</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="developer_signature">© 2023 Oladayo.rgb</string>
     <string name="catch_phrase">Stay Connected!</string>
     <string name="login">Login</string>
@@ -9,6 +8,17 @@
     <string name="verify">Verify</string>
     <string name="email">Email</string>
     <string name="save">Save</string>
+    <string name="profile_update_success">Profile update successful.</string>
+    <string name="please_enter_name">Please enter your first and last name.</string>
+    <string name="please_enter_circle_name">Please a name for you circle</string>
+    <string name="are_you_sure">Are you sure ?</string>
+    <string name="logout_confirm">You are also logged out from your personal cloud.</string>
+    <string name="upload_confirm">The selected avatar will be uploaded as your profile image.</string>
+    <string name="yes_sure">Yes, I\'m sure</string>
+    <string name="log_out">Log Out</string>
+    <string name="password_reset">Password Reset</string>
+    <string name="you_will_receive_instructions_for_resetting_your_password">You will receive instructions for resetting your password</string>
+    <string name="submit">Submit</string>
     <string name="pick_from_default">Pick avatar from default</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="already_have_an_account">Already have an account? </string>
@@ -22,7 +32,6 @@
     <string name="password">Password</string>
     <string name="privacy_agreement_instructions">Please read our Privacy Policy and check the box to agree.</string>
 
-    <string name="country_code_format">%1$s, %2$s</string>
     <string name="agree_continue">Agree &amp; Continue</string>
 
     <string name="privacy_policy_header">Privacy Policy</string>
@@ -67,10 +76,10 @@
     <string-array name="gender_options">
         <item>Male</item>
         <item>Female</item>
-        <item>Prefer not to say</item>
+        <item>Queer</item>
     </string-array>
 
-
+    <string name="welcome_message">Welcome %s!</string>
     <string name="sign_up_text">Create your Alté verse</string>
     <string name="sign_in_text">Log in to your Alté verse</string>
     <string name="skip">SKIP</string>
@@ -80,8 +89,128 @@
     <string name="username_required">Username (Required)</string>
     <string name="empty_text" />
     <string name="connect">Connect</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
     <string name="alte_verse">Alté Verse</string>
     <string name="your_planet">Your Planet</string>
+    <string name="empty_connections">Aww.. you don\'t have any connections\nHead to the AltéVerse to make some</string>
+    <string name="requests">Requests</string>
+    <string name="invites_list">Invites List</string>
+    <string name="not_set_yet">Not set yet</string>
 
+
+    <string name="starred_names_format">%1$s to %2$s</string>
+    <string name="user_name_template">\@%s</string>
+    <string name="username">\@username</string>
+    <string name="username_header">username</string>
+    <string name="birthday_privacy_info">Your birthday is private and will not be visible to other users.</string>
+
+
+    <string name="online">online</string>
+    <string name="offline">offline</string>
+    <string name="invites_list_empty">Invites list empty!</string>
+    <string name="revoke">Revoke</string>
+    <string name="connection_requests">Connection requests</string>
+    <string name="no_connection_requests">No connection requests</string>
+    <string name="welcome_og">Welcome OG!</string>
+    <string name="type_message">Type Message</string>
+    <string name="no_current_chats">No current chats</string>
+    <string name="_08_00am">08:00AM</string>
+    <string name="message_delivered">message delivered</string>
+    <string name="message_read">message read</string>
+    <string name="view_citizen">View Citizen</string>
+    <string name="search">Search</string>
+    <string name="shared_media">Shared Media</string>
+    <string name="report">Report</string>
+    <string name="block">Block</string>
+    <string name="clear_chat">Clear Chat</string>
+    <string name="add_peep">Add Peep</string>
+    <string name="your_peep">Your Peep</string>
+    <string name="you">You</string>
+    <string name="your_circles">Your Circles</string>
+    <string name="your_name">Your Name</string>
+    <string name="insert_caption">Insert Caption</string>
+    <string name="type_reply">Type Reply</string>
+    <string name="full_name_required">Full Name (Required)</string>
+    <string name="birth_date">Birth Date</string>
+    <string name="about">About</string>
+    <string name="nice_and_sweet">Nice and Sweet</string>
+    <string name="name">Name</string>
+    <string name="birthday">Birthday</string>
+    <string name="location">Location</string>
+    <string name="lagos_ng">Lagos, NG</string>
+    <string name="gender">Gender</string>
+    <string name="about_yourself">About yourself</string>
+    <string name="profile">Profile</string>
+    <string name="pick_image_icon">pick image</string>
+    <string name="pop_back_icon">pop back icon</string>
+    <string name="close_expanded_image">close expanded image</string>
+    <string name="rotate_image">rotate image</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="new_circle">New Circle</string>
+    <string name="new_broadcast">New Broadcast</string>
+    <string name="starred_messages">Starred Messages</string>
+    <string name="settings">Settings</string>
+    <string name="male">Male</string>
+    <string name="_1_000_folks">1,000 Folks</string>
+    <string name="folks_in_your_planet">Folks in your Planet</string>
+    <string name="selects_folks_to_add">Selects folks to add</string>
+    <string name="members_8">Members: 8</string>
+    <string name="circle_name">Type circle Name…</string>
+    <string name="let_s_go">Let\'s Go</string>
+
+    <plurals name="folks_count">
+        <item quantity="one">%d Folk</item>
+        <item quantity="other">%d Folks</item>
+        <item quantity="many">%s Folks</item>
+    </plurals>
+
+    <plurals name="delete_count">
+        <item quantity="one">Delete this message?</item>
+        <item quantity="other">Delete %d messages?</item>
+    </plurals>
+
+    <string name="members_template">Members: %1$d</string>
+    <string name="views_template">Viewed by %1$d</string>
+    <string name="selected_count_template">%1$d of %2$d selected</string>
+    <string name="account">Account</string>
+    <string name="notifications">Notifications</string>
+    <string name="privacy">Privacy</string>
+    <string name="you_have_no_starred_messages">You have no starred messages</string>
+    <string name="voice_type">Voice type</string>
+    <string name="mute_citizen">Mute citizen</string>
+    <string name="chat_with_citizen">Chat with citizen</string>
+    <string name="type_comment">Type comment</string>
+    <string name="invite_sent">Invite Sent</string>
+    <string name="exile">Exile</string>
+    <string name="ditch">Ditch</string>
+    <string name="exile_citizen">Exile Citizen</string>
+    <string name="ditch_citizen">Ditch Citizen</string>
+    <string name="requesting_connection">Requesting Connection</string>
+    <string name="citizen">Citizen</string>
+    <string name="folk">Folk</string>
+    <string name="message_not_sent"><![CDATA[Something went wrong, message not sent!\nCheck connection & try again.]]></string>
+    <string name="reply_not_sent">Something went wrong, Reply not sent</string>
+    <string name="message_image">message image</string>
+    <string name="message_starred">message is starred</string>
+    <string name="invite_received">Invite Received</string>
+    <string name="typing">Typing…</string>
+    <string name="chat">Chat</string>
+    <string name="voice_call">Voice Call</string>
+    <string name="video_call">Video Call</string>
+    <string name="get_started">Get Started</string>
+    <string name="you_to_mary_jane">You to @mary_jane</string>
+    <string name="no_views_yet">No views yet!</string>
+    <string name="confirm_delete">Confirm Delete</string>
+    <string name="delete">Delete</string>
+    <string name="edit_message">Edit message</string>
+    <string name="Delete_message">delete message</string>
+    <string name="copy_message">Copy message</string>
+    <string name="forward_message">Forward message</string>
+    <string name="star_message">Star message</string>
+    <string name="add_attachment">Add attachment</string>
+    <string name="send_msg_record_vn">send message and record voice note button</string>
+    <string name="reply_message">Reply message</string>
+    <string name="more_options">More options</string>
 
 </resources>
