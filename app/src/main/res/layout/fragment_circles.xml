@@ -17,6 +17,7 @@
             android:layout_height="0dp"
             android:scaleType="centerCrop"
             android:src="@drawable/watermark_light"
+            android:contentDescription="@null"
             app:layout_constraintBottom_toBottomOf="@id/userDetailLayout"
             app:layout_constraintTop_toTopOf="@id/userDetailLayout" />
 
@@ -100,6 +101,7 @@
                 android:layout_height="@dimen/dimen_48"
                 android:layout_gravity="center_vertical"
                 android:padding="@dimen/dimen_12"
+                android:contentDescription="@null"
                 android:src="@drawable/go_forward"
                 app:tint="@color/white" />
 
