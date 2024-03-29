@@ -25,12 +25,11 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.rgbstudios.alte.AlteApplication
 import com.rgbstudios.alte.R
 import com.rgbstudios.alte.data.model.Chat
 import com.rgbstudios.alte.data.model.UserDetails
-import com.rgbstudios.alte.data.remote.FirebaseAccess
+import com.rgbstudios.alte.data.firebase.FirebaseAccess
 import com.rgbstudios.alte.data.repository.AlteRepository
 import com.rgbstudios.alte.databinding.FragmentChatBinding
 import com.rgbstudios.alte.ui.adapters.ChatAdapter

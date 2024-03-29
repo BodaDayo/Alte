@@ -1,19 +1,11 @@
 package com.rgbstudios.alte.worker
 
 import android.content.Context
-import android.net.Uri
-import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import com.rgbstudios.alte.data.remote.FirebaseAccess
+import com.rgbstudios.alte.data.firebase.FirebaseAccess
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.io.File
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 class StatusUpdateWorker(appContext: Context, params: WorkerParameters) :
     CoroutineWorker(appContext, params) {

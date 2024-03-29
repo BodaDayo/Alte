@@ -1,4 +1,4 @@
-package com.rgbstudios.alte.data.remote
+package com.rgbstudios.alte.data.firebase
 
 
 import com.google.firebase.auth.FirebaseAuth

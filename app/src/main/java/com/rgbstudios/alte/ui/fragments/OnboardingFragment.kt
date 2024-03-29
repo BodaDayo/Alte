@@ -6,15 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
-import com.airbnb.lottie.LottieAnimationView
-import com.google.android.material.tabs.TabLayoutMediator
 import com.rgbstudios.alte.AlteApplication
 import com.rgbstudios.alte.R
-import com.rgbstudios.alte.data.model.Peep
-import com.rgbstudios.alte.data.remote.FirebaseAccess
+import com.rgbstudios.alte.data.firebase.FirebaseAccess
 import com.rgbstudios.alte.data.repository.AlteRepository
 import com.rgbstudios.alte.databinding.FragmentOnboardingBinding
 import com.rgbstudios.alte.ui.adapters.OnboardingPagerAdapter

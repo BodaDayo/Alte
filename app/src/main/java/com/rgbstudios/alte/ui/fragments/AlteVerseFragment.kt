@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.rgbstudios.alte.AlteApplication
 import com.rgbstudios.alte.R
 import com.rgbstudios.alte.data.model.UserDetails
-import com.rgbstudios.alte.data.remote.FirebaseAccess
+import com.rgbstudios.alte.data.firebase.FirebaseAccess
 import com.rgbstudios.alte.data.repository.AlteRepository
 import com.rgbstudios.alte.databinding.FragmentAlteVerseBinding
 import com.rgbstudios.alte.ui.adapters.AlteVerseAdapter

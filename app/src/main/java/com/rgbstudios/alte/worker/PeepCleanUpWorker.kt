@@ -6,7 +6,7 @@ import androidx.work.WorkerParameters
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import com.rgbstudios.alte.data.remote.FirebaseAccess
+import com.rgbstudios.alte.data.firebase.FirebaseAccess
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.resume

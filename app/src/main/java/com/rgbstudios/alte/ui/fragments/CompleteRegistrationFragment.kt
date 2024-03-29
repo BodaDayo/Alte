@@ -13,13 +13,12 @@ import androidx.activity.addCallback
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.rgbstudios.alte.AlteApplication
 import com.rgbstudios.alte.R
 import com.rgbstudios.alte.data.model.UserUploadBundle
-import com.rgbstudios.alte.data.remote.FirebaseAccess
+import com.rgbstudios.alte.data.firebase.FirebaseAccess
 import com.rgbstudios.alte.data.repository.AlteRepository
 import com.rgbstudios.alte.databinding.FragmentCompleteRegistrationBinding
 import com.rgbstudios.alte.ui.adapters.AvatarAdapter
@@ -29,7 +28,6 @@ import com.rgbstudios.alte.utils.ImageHandler
 import com.rgbstudios.alte.utils.ToastManager
 import com.rgbstudios.alte.viewmodel.AlteViewModel
 import com.rgbstudios.alte.viewmodel.AlteViewModelFactory
-import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale

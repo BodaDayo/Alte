@@ -13,7 +13,7 @@ import com.rgbstudios.alte.data.model.CurrentUserDetails
 import com.rgbstudios.alte.data.model.Peep
 import com.rgbstudios.alte.data.model.UserDetails
 import com.rgbstudios.alte.data.model.UserUploadBundle
-import com.rgbstudios.alte.data.remote.FirebaseAccess
+import com.rgbstudios.alte.data.firebase.FirebaseAccess
 import com.rgbstudios.alte.data.repository.AlteRepository
 import com.rgbstudios.alte.utils.SharedPreferencesManager
 import kotlinx.coroutines.launch

@@ -18,7 +18,7 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.rgbstudios.alte.AlteApplication
 import com.rgbstudios.alte.R
-import com.rgbstudios.alte.data.remote.FirebaseAccess
+import com.rgbstudios.alte.data.firebase.FirebaseAccess
 import com.rgbstudios.alte.data.repository.AlteRepository
 import com.rgbstudios.alte.databinding.FragmentProfileBinding
 import com.rgbstudios.alte.ui.adapters.AvatarAdapter
@@ -28,7 +28,6 @@ import com.rgbstudios.alte.utils.ImageHandler
 import com.rgbstudios.alte.utils.ToastManager
 import com.rgbstudios.alte.viewmodel.AlteViewModel
 import com.rgbstudios.alte.viewmodel.AlteViewModelFactory
-import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.Locale
 

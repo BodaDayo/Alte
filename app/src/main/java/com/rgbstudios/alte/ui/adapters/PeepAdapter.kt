@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.rgbstudios.alte.R
 import com.rgbstudios.alte.data.model.Peep
 import com.rgbstudios.alte.data.model.UserDetails
-import com.rgbstudios.alte.data.remote.FirebaseAccess
+import com.rgbstudios.alte.data.firebase.FirebaseAccess
 import com.rgbstudios.alte.databinding.ItemPeepBinding
 import com.rgbstudios.alte.utils.OvalStrokeCounterView
 

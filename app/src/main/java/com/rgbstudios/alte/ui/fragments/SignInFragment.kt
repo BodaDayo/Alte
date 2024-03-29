@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.rgbstudios.alte.AlteApplication
 import com.rgbstudios.alte.R
-import com.rgbstudios.alte.data.remote.FirebaseAccess
+import com.rgbstudios.alte.data.firebase.FirebaseAccess
 import com.rgbstudios.alte.data.repository.AlteRepository
 import com.rgbstudios.alte.databinding.FragmentSignInBinding
 import com.rgbstudios.alte.utils.DialogManager
