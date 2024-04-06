@@ -12,12 +12,16 @@ The Alté App is a feature-rich Android messaging app designed to keep you conne
 - **Voice Call:** Coming soon
 - **Video Call:** OTW
 
+![Cover 1](https://github.com/cooncudee/Alte/blob/master/assests/onboarding1.png)
+
 ## Installation
 You can download the app from the Google Play Store or install it manually by following these steps:
 
 1. [Download the APK](https://github.com/cooncudee/TODO_Mobile/raw/master/app/release/) from the repository's releases.
 1. Enable installation from unknown sources on your Android device.
 1. Install the app by opening the APK file.
+
+![Cover 1](https://github.com/cooncudee/Alte/blob/master/assests/cover2.png)
 
 ## Usage
 Getting started with the Alté App is easy:
@@ -43,7 +47,7 @@ Contact
 
 Happy chatting with the Awesome Alté App! 🚀
 
-![Cover 1](https://github.com/cooncudee/Alte/blob/master/assests/cover1.png)
+![Cover 1](https://github.com/cooncudee/Alte/blob/master/assests/screens.png)
 
 
 With ❤️ from RGBStudios 🎨
