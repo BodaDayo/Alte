@@ -4,7 +4,6 @@ import com.rgbstudios.alte.`interface`.NotificationApi
 import com.rgbstudios.alte.utils.Constants.Companion.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 class RetrofitInstance {
 
