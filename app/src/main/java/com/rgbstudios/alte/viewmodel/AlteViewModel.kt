@@ -6,16 +6,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import com.rgbstudios.alte.AlteApplication
 import com.rgbstudios.alte.R
+import com.rgbstudios.alte.data.RetrofitInstance
 import com.rgbstudios.alte.data.model.Chat
 import com.rgbstudios.alte.data.model.CurrentUserDetails
 import com.rgbstudios.alte.data.model.Peep
 import com.rgbstudios.alte.data.model.UserDetails
 import com.rgbstudios.alte.data.model.UserUploadBundle
 import com.rgbstudios.alte.data.firebase.FirebaseAccess
+import com.rgbstudios.alte.data.firebase.FirebaseService
+import com.rgbstudios.alte.data.model.NotificationData
+import com.rgbstudios.alte.data.model.PushNotification
 import com.rgbstudios.alte.data.repository.AlteRepository
 import com.rgbstudios.alte.utils.SharedPreferencesManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AlteViewModel(application: AlteApplication, private val alteRepository: AlteRepository) :
@@ -241,6 +248,12 @@ class AlteViewModel(application: AlteApplication, private val alteRepository: Al
 
     fun sendChat(chat: Chat, callback: (Boolean) -> Unit) {
         alteRepository.sendMessage(chat, callback)
+        PushNotification(
+            NotificationData("New Message", chat.message),
+            FirebaseService.token ?: ""
+        ).also {
+            sendNotification(it)
+        }
     }
 
     fun uploadChatImage(
@@ -516,6 +529,19 @@ class AlteViewModel(application: AlteApplication, private val alteRepository: Al
     /**
      * ----Utils----------------------------------------------------------------------------------
      */
+
+    private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val response = RetrofitInstance.api.postNotification(notification)
+            if (response.isSuccessful) {
+                firebase.addLog("Response: ${Gson().toJson(response)}")
+            } else {
+                firebase.addLog(response.errorBody().toString())
+            }
+        } catch (e: Exception) {
+            firebase.recordCaughtException(e)
+        }
+    }
 
     fun toggleSlider(toClose: Boolean) {
         _closeSlider.value = toClose

@@ -5,9 +5,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.installations.FirebaseInstallations
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.rgbstudios.alte.utils.SharedPreferencesManager
 
 class FirebaseAccess {
 
@@ -17,6 +19,17 @@ class FirebaseAccess {
     private val crashlytics = Firebase.crashlytics
 
     val currentUser = auth.currentUser
+
+    fun getToken(sharedPreferencesManager: SharedPreferencesManager) {
+        FirebaseService.sharedPref = sharedPreferencesManager
+
+        FirebaseInstallations.getInstance().id.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val token = task.result
+                FirebaseService.token = token
+            }
+        }
+    }
 
     fun signIn(email: String, pass: String, callback: (Boolean, String?) -> Unit) {
         auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {

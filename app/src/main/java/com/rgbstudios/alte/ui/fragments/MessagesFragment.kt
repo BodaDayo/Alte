@@ -30,6 +30,7 @@ import com.rgbstudios.alte.ui.adapters.PeepAdapter
 import com.rgbstudios.alte.utils.DateTimeManager
 import com.rgbstudios.alte.utils.DialogManager
 import com.rgbstudios.alte.utils.ImageHandler
+import com.rgbstudios.alte.utils.SharedPreferencesManager
 import com.rgbstudios.alte.utils.ToastManager
 import com.rgbstudios.alte.viewmodel.AlteViewModel
 import com.rgbstudios.alte.viewmodel.AlteViewModelFactory
@@ -71,6 +72,10 @@ class MessagesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val sharedPreferencesManager = SharedPreferencesManager(requireContext())
+        firebase.getToken(sharedPreferencesManager)
+
         binding.apply {
             currentUser = firebase.auth.currentUser
 
