@@ -17,7 +17,7 @@ The Alté App is a feature-rich Android messaging app designed to keep you conne
 ## Installation
 You can download the app from the Google Play Store or install it manually by following these steps:
 
-1. [Download the APK](https://github.com/cooncudee/TODO_Mobile/raw/master/app/release/Alte1.0.0.apk) from the repository's releases.
+1. [Download the APK](https://github.com/cooncudee/Alte/blob/master/app/release/Alte1.0.0.apk) from the repository's releases.
 1. Enable installation from unknown sources on your Android device.
 1. Install the app by opening the APK file.
 
