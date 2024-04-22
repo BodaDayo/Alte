@@ -31,8 +31,8 @@ Getting started with the Alté App is easy:
 1. Explore additional features like voice and video calling (coming soon).
 
 ## Feedback and Contributions
-We welcome your feedback and contributions to make the Alté App even better! If you encounter any issues, have suggestions, or would like to report a bug, please open an [issue](/issues).
-Feel free to contribute to the development by submitting a [pull request](/pulls).
+We welcome your feedback and contributions to make the Alté App even better! If you encounter any issues, have suggestions, or would like to report a bug, please open an [issue](https://github.com/cooncudee/Alte/issues).
+Feel free to contribute to the development by submitting a [pull request](https://github.com/cooncudee/Alte/pulls).
 
 License
 This project is licensed under the MIT License - see the [LICENSE](/LICENSE.md) file for details.
