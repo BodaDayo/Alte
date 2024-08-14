@@ -17,7 +17,7 @@ import com.rgbstudios.alte.viewmodel.AlteViewModel
 class AlteVerseAdapter(
     private val context: Context,
     private val viewModel: AlteViewModel,
-    private val userClickListener: AlteVerseAdapter.UserClickListener
+    private val userClickListener: (UserDetails) -> Unit
 ) :
     RecyclerView.Adapter<AlteVerseAdapter.AlteViewHolder>() {
 
@@ -28,8 +28,8 @@ class AlteVerseAdapter(
     private val currentUser = viewModel.currentUser.value
     private val currentUsersFolks = currentUser?.folks.orEmpty()
 
-    fun updateAlteVerseList(AlteUsers: List<UserDetails>) {
-        list = AlteUsers
+    fun updateAlteVerseList(alteUsers: List<UserDetails>) {
+        list = alteUsers
         notifyDataSetChanged()
     }
 
@@ -54,8 +54,20 @@ class AlteVerseAdapter(
                 .placeholder(R.drawable.user_icon)
                 .into(userAvatarVerse)
 
+            setClickListeners(holder, user)
+
+            if (user.uid == currentUser?.uid) {
+                handleCurrentUser(holder)
+            } else {
+                handleNewUser(holder, user)
+            }
+        }
+    }
+
+    private fun setClickListeners(holder: AlteViewHolder, user: UserDetails) {
+        holder.binding.apply {
             verseUserLayout.setOnClickListener {
-                userClickListener.onUserClick(user)
+                userClickListener(user)
             }
 
             connectButton.setOnClickListener {
@@ -83,13 +95,19 @@ class AlteVerseAdapter(
                     }
                 }
             }
+        }
+    }
 
-            if (user.uid == currentUser?.uid) {
-
-                folkTV.text = context.getString(R.string.you)
-                folkTV.visibility = View.VISIBLE
-                connectionControlsLayout.visibility = View.GONE
-            } else if (currentUsersFolks.contains(user.uid)) {
+    private fun handleCurrentUser(holder: AlteViewHolder) {
+        holder.binding.apply {
+            folkTV.text = context.getString(R.string.you)
+            folkTV.visibility = View.VISIBLE
+            connectionControlsLayout.visibility = View.GONE
+        }
+    }
+    private fun handleNewUser(holder: AlteViewHolder, user: UserDetails) {
+        holder.binding.apply {
+            if (currentUsersFolks.contains(user.uid)) {
 
                 folkTV.text = context.getString(R.string.folk)
                 folkTV.visibility = View.VISIBLE
@@ -104,17 +122,17 @@ class AlteVerseAdapter(
                     connectProgressBar.visibility = View.GONE
                     connectButton.visibility = View.GONE
                     invitedTextTV.visibility = View.GONE
-                    requestedTextTV.visibility =View.VISIBLE
+                    requestedTextTV.visibility = View.VISIBLE
                 } else if (isInvited) {
                     connectProgressBar.visibility = View.GONE
                     connectButton.visibility = View.GONE
-                    requestedTextTV.visibility =View.GONE
+                    requestedTextTV.visibility = View.GONE
                     invitedTextTV.visibility = View.VISIBLE
 
                 } else {
                     connectProgressBar.visibility = View.GONE
                     invitedTextTV.visibility = View.GONE
-                    requestedTextTV.visibility =View.GONE
+                    requestedTextTV.visibility = View.GONE
                     connectButton.visibility = View.VISIBLE
 
                 }
@@ -123,13 +141,9 @@ class AlteVerseAdapter(
         }
     }
 
+
     override fun getItemCount(): Int {
         return list.size
-    }
-
-    interface UserClickListener {
-        fun onUserClick(user: UserDetails)
-
     }
 
 }

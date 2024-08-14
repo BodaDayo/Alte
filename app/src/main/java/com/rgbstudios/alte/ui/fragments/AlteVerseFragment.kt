@@ -83,18 +83,17 @@ class AlteVerseFragment : Fragment() {
             planetRecyclerView.adapter = planetAdapter
 
             // Set up the alte verse adapter
-            val alteVerseAdapter = AlteVerseAdapter(requireContext(), alteViewModel,
-                object : AlteVerseAdapter.UserClickListener {
-                    override fun onUserClick(user: UserDetails) {
-                        if (user.uid == alteViewModel.currentUser.value?.uid) {
-                            findNavController().navigate(R.id.action_alteVerseFragment_to_profileFragment)
-                        } else {
-                            alteViewModel.setSelectedCitizen(user)
-                            findNavController().navigate(R.id.action_alteVerseFragment_to_citizenProfileFragment)
-                        }
-                        planetIsVisible = true
-                    }
-                })
+            val alteVerseAdapter = AlteVerseAdapter(requireContext(), alteViewModel) { user ->
+
+                if (user.uid == alteViewModel.currentUser.value?.uid) {
+                    findNavController().navigate(R.id.action_alteVerseFragment_to_profileFragment)
+                } else {
+                    alteViewModel.setSelectedCitizen(user)
+                    findNavController().navigate(R.id.action_alteVerseFragment_to_citizenProfileFragment)
+                }
+                planetIsVisible = true
+
+            }
 
             // Set up the alteVerseRecyclerView
             alteVerseRecyclerView.layoutManager = LinearLayoutManager(context)

@@ -49,14 +49,6 @@ class AlteRepository(private val firebase: FirebaseAccess) {
         firebase.logOut(callback)
     }
 
-    fun changePassword(newPassword: String, callback: (Boolean, String?) -> Unit) {
-        firebase.changePassword(newPassword, callback)
-    }
-
-    fun deleteAccountAndData(callback: (Boolean, String?) -> Unit) {
-        firebase.deleteAccountAndData(callback)
-    }
-
     /**
      * ----Creation---------------------------------------------------------------------------
      */
@@ -198,22 +190,18 @@ class AlteRepository(private val firebase: FirebaseAccess) {
                             .addOnCompleteListener {
                                 if (it.isSuccessful) {
                                     callback(imageUri, null)
-                                } else {
-                                    val errorMessage = "Failed to upload image."
                                 }
                             }
                     }
                         .addOnFailureListener {
-                            val errorMessage = "Failed to upload image."
                             firebase.recordCaughtException(it)
                         }
                 }
                 .addOnFailureListener {
-                    val errorMessage = "Failed to upload image."
                     firebase.recordCaughtException(it)
                 }
         } catch (e: Exception) {
-            val errorMessage = "Failed to upload image."
+            IMAGE_UPLOAD_FAILED
             // Handle exceptions if needed
             firebase.recordCaughtException(e)
         }
@@ -572,48 +560,64 @@ class AlteRepository(private val firebase: FirebaseAccess) {
         val receiverDetailsRef = firebase.getUserListRef().child(receiverId)
 
         try {
-            receiverDetailsRef.child("exile")
-                .addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        val receiversExileList =
-                            snapshot.getValue(object : GenericTypeIndicator<List<String>>() {})
-                                ?: emptyList()
-
-                        // If the sender is not on the receiver's "exile" list
-                        if (receiversExileList.contains(senderId)) {
-
-                            callback(false, "Sorry you cannot connect with this citizen")
-                        } else {
-                            senderDetailsRef.updateList(receiverId, true) { inviteTaskSuccessful ->
-                                if (inviteTaskSuccessful) {
-                                    receiverDetailsRef.updateList(
-                                        senderId,
-                                        true
-                                    ) { receiverTaskSuccessful ->
-                                        if (receiverTaskSuccessful) {
-                                            callback(true, null)
-                                        } else {
-                                            senderDetailsRef.updateList(receiverId, false) {
-                                                callback(false, "Error sending invite!")
-                                            }
-                                        }
-                                    }
-                                } else {
-                                    callback(false, "Error sending invite, try again")
-                                }
-                            }
-                        }
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-                        callback(false, "Error sending invite, try again")
-                    }
-
-                })
+            checkIfSenderIsExiled(receiverDetailsRef, senderId) { isExiled ->
+                if (isExiled) {
+                    callback(false, "Sorry you cannot connect with this citizen")
+                } else {
+                    sendInvite(senderDetailsRef, receiverId, receiverDetailsRef, senderId, callback)
+                }
+            }
 
         } catch (e: Exception) {
             firebase.recordCaughtException(e)
-            callback(false, "Error sending invite, try again")
+            callback(false, ERROR_SENDING_INVITE)
+        }
+    }
+
+    private fun checkIfSenderIsExiled(
+        receiverDetailsRef: DatabaseReference,
+        senderId: String,
+        callback: (Boolean) -> Unit
+    ) {
+        receiverDetailsRef.child("exile")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val receiversExileList =
+                        snapshot.getValue(object : GenericTypeIndicator<List<String>>() {})
+                            ?: emptyList()
+                    callback(receiversExileList.contains(senderId))
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    callback(false)
+                }
+            })
+    }
+
+    private fun sendInvite(
+        senderDetailsRef: DatabaseReference,
+        receiverId: String,
+        receiverDetailsRef: DatabaseReference,
+        senderId: String,
+        callback: (Boolean, String?) -> Unit
+    ) {
+        senderDetailsRef.updateList(receiverId, true) { inviteTaskSuccessful ->
+            if (inviteTaskSuccessful) {
+                receiverDetailsRef.updateList(
+                    senderId,
+                    true
+                ) { receiverTaskSuccessful ->
+                    if (receiverTaskSuccessful) {
+                        callback(true, null)
+                    } else {
+                        senderDetailsRef.updateList(receiverId, false) {
+                            callback(false, "Error sending invite!")
+                        }
+                    }
+                }
+            } else {
+                callback(false, ERROR_SENDING_INVITE)
+            }
         }
     }
 
@@ -823,6 +827,13 @@ class AlteRepository(private val firebase: FirebaseAccess) {
             val detailsRefs = listOf(senderDetailsRef, receiverDetailsRef)
 
             for (detailsRef in detailsRefs) {
+                updateDBDeliveryStatus(
+                    detailsRef,
+                    nodeToChange,
+                    recipientId,
+                    deliveryBoolean,
+                    starredList
+                )
                 detailsRef.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         for (childSnapshot in snapshot.children) {
@@ -865,6 +876,52 @@ class AlteRepository(private val firebase: FirebaseAccess) {
             firebase.recordCaughtException(e)
             // Handle exception
         }
+    }
+
+    private fun updateDBDeliveryStatus(
+        detailsRef: DatabaseReference,
+        nodeToChange: Int,
+        recipientId: String,
+        deliveryBoolean: Boolean,
+        starredList: List<String>
+    ) {
+        detailsRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (childSnapshot in snapshot.children) {
+                    val chat = childSnapshot.getValue(Chat::class.java)
+
+                    val senderId =
+                        childSnapshot.child("senderId").getValue(String::class.java) ?: ""
+
+                    val statusKey = if (nodeToChange == 1) "isDelivered" else "isRead"
+
+                    // Update isDelivered if senderId matches recipientId
+                    if (senderId == recipientId) {
+                        childSnapshot.ref.child(statusKey).setValue(deliveryBoolean)
+                            .addOnCompleteListener {
+
+                                if (chat != null) {
+
+                                    val node = chat.timeStamp + chat.senderId
+
+                                    if (starredList.contains(node)) {
+                                        val starredListRef =
+                                            firebase.getUserListRef().child(senderId)
+                                                .child("starredMessages").child(node)
+                                                .child(statusKey)
+
+                                        starredListRef.setValue(deliveryBoolean)
+                                    }
+                                }
+                            }
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle error
+            }
+        })
     }
 
     fun updateTypingStatus(
@@ -1278,6 +1335,11 @@ class AlteRepository(private val firebase: FirebaseAccess) {
 
         // Check if the network capabilities have internet access
         return (networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true)
+    }
+
+    companion object {
+        private const val ERROR_SENDING_INVITE = "Error sending invite, try again"
+        private const val IMAGE_UPLOAD_FAILED = "Failed to upload image."
     }
 
 }
