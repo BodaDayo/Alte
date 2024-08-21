@@ -38,7 +38,7 @@ License
 This project is licensed under the MIT License - see the [LICENSE](/LICENSE) file for details.
 
 ## Acknowledgments
-Shout out to the open-source community for the incredible resources and support, JetBrains from the free resources, Squares and circles on Figma for the UI inspo, and everyone that's contributed to the development of the Alté App. :+1: :+1:
+Shout out to the open-source community for the incredible resources and support, JetBrains from the free resources, Squares and circles on Figma for the UI inspiration, and everyone that's contributed to the development of the Alté App. :+1: :+1:
 
 Contact
 - Email: rgb.mobile.studios@gmail.com
