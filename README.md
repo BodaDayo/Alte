@@ -43,7 +43,7 @@ Shout out to the open-source community for the incredible resources and support,
 Contact
 - Email: rgb.mobile.studios@gmail.com
 - LinkedIn: [Oladayo Babalola](https://linkedin.com/in/oladayo-babalola-spt/)
-- GitHub: [This Profile](https://github.com/cooncudee/)
+- GitHub: [This Profile](https://github.com/bodadayo/)
 
 Happy chatting with the Awesome Alté App! 🚀
 
